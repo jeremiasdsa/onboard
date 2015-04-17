@@ -188,12 +188,12 @@ public class MainPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Button_UpperDeckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_UpperDeckActionPerformed
-       label_plantSeciton.setIcon(new javax.swing.ImageIcon("C:\\Users\\YURISNMELO\\Desktop\\PROJETO NAVIO\\DEMO PICS\\UpperDeck.jpg"));
+       label_plantSeciton.setIcon(new javax.swing.ImageIcon("C:\\Users\\YURISNMELO\\Documents\\NetBeansProjects\\onboard\\OnBoardSoftware\\src\\view\\image\\DEMO PICS\\UpperDeck.jpg"));
        label_plantSeciton.setVisible(true);
     }//GEN-LAST:event_Button_UpperDeckActionPerformed
 
     private void Button_ALLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ALLActionPerformed
-        label_plantSeciton.setIcon(new javax.swing.ImageIcon("C:\\Users\\YURISNMELO\\Desktop\\PROJETO NAVIO\\DEMO PICS\\GeneralPlant.jpg"));
+        label_plantSeciton.setIcon(new javax.swing.ImageIcon("C:\\Users\\YURISNMELO\\Documents\\NetBeansProjects\\onboard\\OnBoardSoftware\\src\\view\\image\\DEMO PICS\\GeneralPlant.jpg"));
         label_plantSeciton.setVisible(true);
     }//GEN-LAST:event_Button_ALLActionPerformed
 
@@ -202,17 +202,17 @@ public class MainPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_ExitActionPerformed
 
     private void Button_MiddleDeckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_MiddleDeckActionPerformed
-        label_plantSeciton.setIcon(new javax.swing.ImageIcon("C:\\Users\\YURISNMELO\\Desktop\\PROJETO NAVIO\\DEMO PICS\\MiddleDeck.jpg"));
+        label_plantSeciton.setIcon(new javax.swing.ImageIcon("C:\\Users\\YURISNMELO\\Documents\\NetBeansProjects\\onboard\\OnBoardSoftware\\src\\view\\image\\DEMO PICS\\MiddleDeck.jpg"));
         label_plantSeciton.setVisible(true);
     }//GEN-LAST:event_Button_MiddleDeckActionPerformed
 
     private void Button_MainDeckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_MainDeckActionPerformed
-        label_plantSeciton.setIcon(new javax.swing.ImageIcon("C:\\Users\\YURISNMELO\\Desktop\\PROJETO NAVIO\\DEMO PICS\\MainDeck.jpg"));
+        label_plantSeciton.setIcon(new javax.swing.ImageIcon("C:\\Users\\YURISNMELO\\Documents\\NetBeansProjects\\onboard\\OnBoardSoftware\\src\\view\\image\\DEMO PICS\\MainDeck.jpg"));
         label_plantSeciton.setVisible(true);
     }//GEN-LAST:event_Button_MainDeckActionPerformed
 
     private void Button_SideViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SideViewActionPerformed
-        label_plantSeciton.setIcon(new javax.swing.ImageIcon("C:\\Users\\YURISNMELO\\Desktop\\PROJETO NAVIO\\DEMO PICS\\SideView.jpg"));
+        label_plantSeciton.setIcon(new javax.swing.ImageIcon("C:\\Users\\YURISNMELO\\Documents\\NetBeansProjects\\onboard\\OnBoardSoftware\\src\\view\\image\\DEMO PICS\\SideView.jpg"));
         label_plantSeciton.setVisible(true);
     }//GEN-LAST:event_Button_SideViewActionPerformed
 
