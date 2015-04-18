@@ -8,7 +8,10 @@ package view;
 import java.awt.Color;
 import javax.swing.*;
 import java.io.*;
+import java.util.ArrayList;
 import javax.imageio.*;
+import onboardsoftware.ReadXLSX;
+import onboardsoftware.Task;
 
 /**
  *
@@ -45,6 +48,7 @@ public class MainPanel extends javax.swing.JFrame {
         Button_MiddleDeck = new javax.swing.JButton();
         Button_MainDeck = new javax.swing.JButton();
         Button_SideView = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         Menu_File = new javax.swing.JMenu();
         Button_ImporFile = new javax.swing.JMenuItem();
@@ -53,7 +57,6 @@ public class MainPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        label_plantSeciton.setIcon(new javax.swing.ImageIcon("C:\\Users\\YURISNMELO\\Desktop\\PROJETO NAVIO\\DEMO PICS\\Upper Deck.jpg")); // NOI18N
         label_plantSeciton.setVisible(false);
         label_plantSeciton.setText("");
 
@@ -75,7 +78,6 @@ public class MainPanel extends javax.swing.JFrame {
         );
 
         Label_View.setBackground(new java.awt.Color(0, 102, 102));
-        Label_View.setForeground(new java.awt.Color(0, 0, 0));
         Label_View.setText("VIEW");
 
         Button_ALL.setText("All");
@@ -113,6 +115,15 @@ public class MainPanel extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(51, 255, 102));
+        jButton1.setForeground(new java.awt.Color(255, 51, 102));
+        jButton1.setText("importXLS");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Panel_ButtonLayout = new javax.swing.GroupLayout(Panel_Button);
         Panel_Button.setLayout(Panel_ButtonLayout);
         Panel_ButtonLayout.setHorizontalGroup(
@@ -123,6 +134,7 @@ public class MainPanel extends javax.swing.JFrame {
             .addComponent(Button_MainDeck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Button_SideView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Button_UpperDeck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         Panel_ButtonLayout.setVerticalGroup(
             Panel_ButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,6 +150,8 @@ public class MainPanel extends javax.swing.JFrame {
                 .addComponent(Button_MainDeck)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Button_SideView)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -216,6 +230,21 @@ public class MainPanel extends javax.swing.JFrame {
         label_plantSeciton.setVisible(true);
     }//GEN-LAST:event_Button_SideViewActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String filename = f.getAbsolutePath();
+        ReadXLSX read = new ReadXLSX();
+        ArrayList<Task> tasks = read.getTasks(filename);
+        
+        for(int i =0;i<tasks.size();i++){
+            System.out.println(tasks.get(i).toString());
+        }
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -265,6 +294,7 @@ public class MainPanel extends javax.swing.JFrame {
     private javax.swing.JMenu Menu_File;
     private javax.swing.JPanel Panel_Button;
     private javax.swing.JPanel Panel_PlantView;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel label_plantSeciton;
     // End of variables declaration//GEN-END:variables
 }
