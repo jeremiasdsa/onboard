@@ -23,7 +23,21 @@ public class Task {
         
         this.list=list;
     
+        
     
+    }
+    
+    public boolean isCold(){
+        if(getColdWorkPermitNo()!=null || getColdWorkPermitNo().getStringCellValue().compareTo("")==0){
+            return false;
+        }else{
+            return true;
+        }
+            
+    
+    }
+    public ArrayList<Cell> getList(){
+        return this.list;
     }
 
     public Cell getColdWorkPermitNo() {
