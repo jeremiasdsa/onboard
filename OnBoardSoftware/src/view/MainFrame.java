@@ -47,13 +47,14 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         myUpdate();
         
         
     }
     
     public void myUpdate(){
-        setExtendedState(JFrame.MAXIMIZED_BOTH); 
         setVisible(true);
         Icon initial_icon = new javax.swing.ImageIcon("src/view/image/DEMO PICS/ViewFromAbove.jpg");
         label_plantSection.setIcon(initial_icon);
@@ -66,6 +67,7 @@ public class MainFrame extends javax.swing.JFrame {
         label_plantSection.setVisible(true);
         add(ScrollPanel_plantShip);
         ScrollPanel_plantShip.setSize(1920,900);
+        setResizable(false);
         setVisible(true);
         generateAllModules();
     }
@@ -75,7 +77,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         moduleTS022.setLocation(466, 403);
         moduleTS022.setSize(100, 137);
-      //  moduleTS022.setBackground(new Color(0,0,0,0));
+        moduleTS022.setBackground(null);
         
         moduleTS021.setLocation(572, 403);
         moduleTS021.setSize(130, 137);
@@ -109,15 +111,7 @@ public class MainFrame extends javax.swing.JFrame {
         moduleTS063.setSize(128, 88);
       //  moduleTS063.setBackground(new Color(0,0,255,80));
         
-        ScrollPanel_plantShip.add(moduleTS022);
-        ScrollPanel_plantShip.add(moduleTS021);
-        ScrollPanel_plantShip.add(moduleTS264);
-        ScrollPanel_plantShip.add(moduleTS265);
-        ScrollPanel_plantShip.add(moduleTS266);
-        ScrollPanel_plantShip.add(moduleTS267);
-        ScrollPanel_plantShip.add(moduleTS062);
-        ScrollPanel_plantShip.add(moduleTS075);
-        ScrollPanel_plantShip.add(moduleTS063);
+  
     }
     
     public void aplyTasksInModules(){
@@ -173,6 +167,8 @@ public class MainFrame extends javax.swing.JFrame {
                 moduleTS063.add(t1);
             }
         }
+        tasks = new ArrayList<>();
+        
         setVisible(true);
     }
         
@@ -207,9 +203,20 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OnSoftwareBoard");
+        setResizable(false);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
+            }
+        });
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
+        addWindowStateListener(new java.awt.event.WindowStateListener() {
+            public void windowStateChanged(java.awt.event.WindowEvent evt) {
+                formWindowStateChanged(evt);
             }
         });
 
@@ -534,6 +541,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
       
     }//GEN-LAST:event_formMouseClicked
+
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+        
+    }//GEN-LAST:event_formWindowStateChanged
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+               
+    }//GEN-LAST:event_formComponentResized
     
     
     /**
