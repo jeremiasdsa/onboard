@@ -19,6 +19,7 @@ import java.io.*;
 import java.util.ArrayList;
 import javafx.scene.input.ZoomEvent;
 import javax.imageio.*;
+import javax.swing.border.Border;
 import onboardsoftware.ReadXLSX;
 import onboardsoftware.Task;
 import org.apache.poi.ss.usermodel.Cell;
@@ -63,14 +64,10 @@ public class MainFrame extends javax.swing.JFrame {
         Image newing = img.getScaledInstance((int)(label_plantSection.getIcon().getIconWidth()/5.7), (int)(label_plantSection.getIcon().getIconHeight()/5.7), java.awt.Image.SCALE_SMOOTH);
         label_plantSection.setIcon(new ImageIcon(newing));
         label_plantSection.setVisible(true);
-
-        generateAllModules();
-        
         add(ScrollPanel_plantShip);
-        
         ScrollPanel_plantShip.setSize(1920,900);
-
         setVisible(true);
+        generateAllModules();
     }
             
     
@@ -78,65 +75,105 @@ public class MainFrame extends javax.swing.JFrame {
 
         moduleTS022.setLocation(466, 403);
         moduleTS022.setSize(100, 137);
-        moduleTS022.setBackground(new Color(0,0,255,80));
+      //  moduleTS022.setBackground(new Color(0,0,0,0));
         
         moduleTS021.setLocation(572, 403);
         moduleTS021.setSize(130, 137);
-        moduleTS021.setBackground(new Color(0,255,0,80));
+      //  moduleTS021.setBackground(new Color(0,255,0,80));
         
         moduleTS264.setLocation(712, 393);
         moduleTS264.setSize(150, 55);
-        moduleTS264.setBackground(new Color(255,0,0,80));
+      //  moduleTS264.setBackground(new Color(255,0,0,80));
 
         moduleTS265.setLocation(875, 393);
         moduleTS265.setSize(130, 55);
-        moduleTS265.setBackground(new Color(255,0,0,80));
+      //  moduleTS265.setBackground(new Color(255,0,0,80));
         
         moduleTS266.setLocation(1015, 393);
         moduleTS266.setSize(130, 55);
-        moduleTS266.setBackground(new Color(255,0,0,80));
+      //  moduleTS266.setBackground(new Color(255,0,0,80));
 
         moduleTS267.setLocation(1155, 393);
         moduleTS267.setSize(145, 55);
-        moduleTS267.setBackground(new Color(255,0,0,80));
+     //   moduleTS267.setBackground(new Color(255,0,0,80));
         
         moduleTS062.setLocation(737, 455);
         moduleTS062.setSize(128, 88);
-        moduleTS062.setBackground(new Color(0,0,255,80));
+      //  moduleTS062.setBackground(new Color(0,0,255,80));
         
         moduleTS075.setLocation(880, 455);
         moduleTS075.setSize(128, 88);
-        moduleTS075.setBackground(new Color(0,255,0,80));
+    //    moduleTS075.setBackground(new Color(0,255,0,80));
         
         moduleTS063.setLocation(1015, 455);
         moduleTS063.setSize(128, 88);
-        moduleTS063.setBackground(new Color(0,0,255,80));
+      //  moduleTS063.setBackground(new Color(0,0,255,80));
         
-        add(moduleTS022);
-        add(moduleTS021);
-        add(moduleTS264);
-        add(moduleTS265);
-        add(moduleTS266);
-        add(moduleTS267);
-        add(moduleTS062);
-        add(moduleTS075);
-        add(moduleTS063);
+        ScrollPanel_plantShip.add(moduleTS022);
+        ScrollPanel_plantShip.add(moduleTS021);
+        ScrollPanel_plantShip.add(moduleTS264);
+        ScrollPanel_plantShip.add(moduleTS265);
+        ScrollPanel_plantShip.add(moduleTS266);
+        ScrollPanel_plantShip.add(moduleTS267);
+        ScrollPanel_plantShip.add(moduleTS062);
+        ScrollPanel_plantShip.add(moduleTS075);
+        ScrollPanel_plantShip.add(moduleTS063);
     }
     
     public void aplyTasksInModules(){
 
+        javax.swing.JPanel t1 = new javax.swing.JPanel();
         for (Task t:tasks){
+            t1 = new javax.swing.JPanel();
+            t1.setSize(10, 10);
             if(t.getModuleNumber().toString().compareTo("22.0")==0){
-                javax.swing.JPanel t1 = new javax.swing.JPanel();
-                t1.setSize(5, 5);
                 if(t.isCold())t1.setBackground(Color.BLUE);
                 else t1.setBackground(Color.RED);
+                moduleTS022.add(t1);
                 add(moduleTS022);
-                moduleTS022.add(t1);  
+            }else if(t.getModuleNumber().toString().compareTo("21.0")==0){
+                if(t.isCold())t1.setBackground(Color.BLUE);
+                else t1.setBackground(Color.RED);
+                add(moduleTS021);
+                moduleTS021.add(t1); 
+            }else if(t.getModuleNumber().toString().compareTo("264.0")==0){
+                if(t.isCold())t1.setBackground(Color.BLUE);
+                else t1.setBackground(Color.RED);
+                add(moduleTS264);
+                moduleTS264.add(t1); 
+            }else if(t.getModuleNumber().toString().compareTo("265.0")==0){
+                if(t.isCold())t1.setBackground(Color.BLUE);
+                else t1.setBackground(Color.RED);
+                add(moduleTS265);
+                moduleTS265.add(t1); 
+            }else if(t.getModuleNumber().toString().compareTo("266.0")==0){
+                if(t.isCold())t1.setBackground(Color.BLUE);
+                else t1.setBackground(Color.RED);
+                add(moduleTS266);
+                moduleTS266.add(t1); 
+            }else if(t.getModuleNumber().toString().compareTo("267.0")==0){
+                if(t.isCold())t1.setBackground(Color.BLUE);
+                else t1.setBackground(Color.RED);
+                add(moduleTS267);
+                moduleTS267.add(t1);
+            }else if(t.getModuleNumber().toString().compareTo("62.0")==0){
+                if(t.isCold())t1.setBackground(Color.BLUE);
+                else t1.setBackground(Color.RED);
+                add(moduleTS062);
+                moduleTS062.add(t1);
+            }else if(t.getModuleNumber().toString().compareTo("75.0")==0){
+                if(t.isCold())t1.setBackground(Color.BLUE);
+                else t1.setBackground(Color.RED);
+                add(moduleTS075);
+                moduleTS075.add(t1);
+            }else if(t.getModuleNumber().toString().compareTo("63.0")==0){
+                if(t.isCold())t1.setBackground(Color.BLUE);
+                else t1.setBackground(Color.RED);
+                add(moduleTS063);
+                moduleTS063.add(t1);
             }
         }
         setVisible(true);
-        
     }
         
 
@@ -425,18 +462,12 @@ public class MainFrame extends javax.swing.JFrame {
         for(int i =0;i<tasks.size();i++){
             System.out.println(tasks.get(i).toString());
         }
-        
-        
+        myUpdate();
+
     }//GEN-LAST:event_Button_importXLSActionPerformed
 
     private void Button_viewFromAboveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_viewFromAboveActionPerformed
-        Icon initial_icon = new javax.swing.ImageIcon("src/view/image/DEMO PICS/ViewFromAbove.jpg");
-        label_plantSection.setIcon(initial_icon); 
-        JLabel labelModule266 = new JLabel();
-        labelModule266.setLocation(762, 148);
-        labelModule266.setSize(3, 3);
-        labelModule266.setBackground(Color.BLACK);
-        labelModule266.setVisible(true);
+        myUpdate();
         
     }//GEN-LAST:event_Button_viewFromAboveActionPerformed
 
