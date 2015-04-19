@@ -6,6 +6,7 @@
 package view;
 
 import java.awt.Color;
+import static java.awt.Component.CENTER_ALIGNMENT;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
@@ -17,6 +18,9 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.input.ZoomEvent;
 import javax.imageio.*;
 import javax.swing.border.Border;
@@ -48,11 +52,11 @@ public class MainFrame extends javax.swing.JFrame {
         
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
         myUpdate();
         
         
     }
+    
     
     public void myUpdate(){
         generateAllModules();
@@ -78,92 +82,83 @@ public class MainFrame extends javax.swing.JFrame {
 
         moduleTS022.setLocation(466, 403);
         moduleTS022.setSize(100, 137);
-        moduleTS022.setBackground(null);
+        moduleTS022.setBackground(new Color(0,255,0,80));
         
         moduleTS021.setLocation(572, 403);
         moduleTS021.setSize(130, 137);
-      //  moduleTS021.setBackground(new Color(0,255,0,80));
+        moduleTS021.setBackground(new Color(0,255,0,80));
         
         moduleTS264.setLocation(712, 393);
         moduleTS264.setSize(150, 55);
-      //  moduleTS264.setBackground(new Color(255,0,0,80));
+        moduleTS264.setBackground(new Color(255,0,0,80));
 
         moduleTS265.setLocation(875, 393);
         moduleTS265.setSize(130, 55);
-      //  moduleTS265.setBackground(new Color(255,0,0,80));
+        moduleTS265.setBackground(new Color(255,0,0,80));
         
         moduleTS266.setLocation(1015, 393);
         moduleTS266.setSize(130, 55);
-      //  moduleTS266.setBackground(new Color(255,0,0,80));
+        moduleTS266.setBackground(new Color(255,0,0,80));
 
         moduleTS267.setLocation(1155, 393);
         moduleTS267.setSize(145, 55);
-     //   moduleTS267.setBackground(new Color(255,0,0,80));
+        moduleTS267.setBackground(new Color(255,0,0,80));
         
         moduleTS062.setLocation(737, 455);
         moduleTS062.setSize(128, 88);
-      //  moduleTS062.setBackground(new Color(0,0,255,80));
+        moduleTS062.setBackground(new Color(0,0,255,80));
         
         moduleTS075.setLocation(880, 455);
         moduleTS075.setSize(128, 88);
-    //    moduleTS075.setBackground(new Color(0,255,0,80));
+        moduleTS075.setBackground(new Color(0,255,0,80));
         
         moduleTS063.setLocation(1015, 455);
         moduleTS063.setSize(128, 88);
-      //  moduleTS063.setBackground(new Color(0,0,255,80));
+        moduleTS063.setBackground(new Color(0,0,255,80));
         
   
     }
     
     public void aplyTasksInModules(){
-
         javax.swing.JPanel t1 = new javax.swing.JPanel();
         for (Task t:tasks){
             t1 = new javax.swing.JPanel();
             t1.setSize(10, 10);
+            if(t.isCold()){
+                t1.setBackground(Color.BLUE);
+                t1.setName(t.getColdWorkPermitNo().toString());
+                
+            }
+            else {
+                t1.setBackground(Color.RED);
+                t1.setName(t.getHotWorkPermitNo().toString());
+            }
+            t1.setToolTipText(t.toString());
             if(t.getModuleNumber().toString().compareTo("22.0")==0){
-                if(t.isCold())t1.setBackground(Color.BLUE);
-                else t1.setBackground(Color.RED);
                 moduleTS022.add(t1);
-                add(moduleTS022);
+                add(moduleTS022);  
             }else if(t.getModuleNumber().toString().compareTo("21.0")==0){
-                if(t.isCold())t1.setBackground(Color.BLUE);
-                else t1.setBackground(Color.RED);
                 add(moduleTS021);
                 moduleTS021.add(t1); 
             }else if(t.getModuleNumber().toString().compareTo("264.0")==0){
-                if(t.isCold())t1.setBackground(Color.BLUE);
-                else t1.setBackground(Color.RED);
                 add(moduleTS264);
                 moduleTS264.add(t1); 
             }else if(t.getModuleNumber().toString().compareTo("265.0")==0){
-                if(t.isCold())t1.setBackground(Color.BLUE);
-                else t1.setBackground(Color.RED);
                 add(moduleTS265);
                 moduleTS265.add(t1); 
             }else if(t.getModuleNumber().toString().compareTo("266.0")==0){
-                if(t.isCold())t1.setBackground(Color.BLUE);
-                else t1.setBackground(Color.RED);
                 add(moduleTS266);
                 moduleTS266.add(t1); 
             }else if(t.getModuleNumber().toString().compareTo("267.0")==0){
-                if(t.isCold())t1.setBackground(Color.BLUE);
-                else t1.setBackground(Color.RED);
                 add(moduleTS267);
                 moduleTS267.add(t1);
             }else if(t.getModuleNumber().toString().compareTo("62.0")==0){
-                if(t.isCold())t1.setBackground(Color.BLUE);
-                else t1.setBackground(Color.RED);
                 add(moduleTS062);
                 moduleTS062.add(t1);
             }else if(t.getModuleNumber().toString().compareTo("75.0")==0){
-                if(t.isCold())t1.setBackground(Color.BLUE);
-                else t1.setBackground(Color.RED);
                 add(moduleTS075);
                 moduleTS075.add(t1);
             }else if(t.getModuleNumber().toString().compareTo("63.0")==0){
-                if(t.isCold())t1.setBackground(Color.BLUE);
-                else t1.setBackground(Color.RED);
                 add(moduleTS063);
                 moduleTS063.add(t1);
             }
@@ -191,7 +186,6 @@ public class MainFrame extends javax.swing.JFrame {
         Button_SideView = new javax.swing.JButton();
         Button_importXLS = new javax.swing.JButton();
         Button_viewFromAbove = new javax.swing.JButton();
-        Button_updateMap = new javax.swing.JButton();
         ScrollPanel_plantShip = new javax.swing.JScrollPane();
         label_plantSection = new javax.swing.JLabel();
         Button_zoomIn = new javax.swing.JButton();
@@ -273,18 +267,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        Button_updateMap.setText("Update Map");
-        Button_updateMap.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Button_updateMapMouseClicked(evt);
-            }
-        });
-        Button_updateMap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Button_updateMapActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout Panel_ButtonLayout = new javax.swing.GroupLayout(Panel_Button);
         Panel_Button.setLayout(Panel_ButtonLayout);
         Panel_ButtonLayout.setHorizontalGroup(
@@ -294,18 +276,15 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(Button_importXLS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Button_viewFromAbove, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Panel_ButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Panel_ButtonLayout.createSequentialGroup()
-                        .addComponent(Button_ALL, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Button_UpperDeck, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Button_MiddleDeck, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Button_MainDeck, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Button_SideView, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(Button_updateMap))
+                .addComponent(Button_ALL, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_UpperDeck, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_MiddleDeck, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_MainDeck, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_SideView, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 404, Short.MAX_VALUE))
         );
         Panel_ButtonLayout.setVerticalGroup(
@@ -319,9 +298,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(Button_MainDeck)
                     .addComponent(Button_SideView))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Panel_ButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Button_importXLS)
-                    .addComponent(Button_updateMap)))
+                .addComponent(Button_importXLS))
         );
 
         ScrollPanel_plantShip.setMinimumSize(new java.awt.Dimension(800, 600));
@@ -466,9 +443,7 @@ public class MainFrame extends javax.swing.JFrame {
         String filename = f.getAbsolutePath();
         ReadXLSX read = new ReadXLSX();
         tasks = read.getTasks(filename);
-        for(int i =0;i<tasks.size();i++){
-            System.out.println(tasks.get(i).toString());
-        }
+        aplyTasksInModules();
         myUpdate();
 
     }//GEN-LAST:event_Button_importXLSActionPerformed
@@ -530,15 +505,6 @@ public class MainFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_ScrollPanel_plantShipMouseClicked
 
-    private void Button_updateMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_updateMapActionPerformed
-       aplyTasksInModules();
-       myUpdate();
-    }//GEN-LAST:event_Button_updateMapActionPerformed
-
-    private void Button_updateMapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_updateMapMouseClicked
-        
-    }//GEN-LAST:event_Button_updateMapMouseClicked
-
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
       
     }//GEN-LAST:event_formMouseClicked
@@ -597,7 +563,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton Button_SideView;
     private javax.swing.JButton Button_UpperDeck;
     private javax.swing.JButton Button_importXLS;
-    private javax.swing.JButton Button_updateMap;
     private javax.swing.JButton Button_viewFromAbove;
     private javax.swing.JButton Button_zoomIn;
     private javax.swing.JButton Button_zoomOut;

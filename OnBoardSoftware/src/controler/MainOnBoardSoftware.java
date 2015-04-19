@@ -5,6 +5,7 @@
  */
 package controler;
 
+import view.LogoFrame;
 import view.MainFrame;
 
 /**
@@ -14,6 +15,7 @@ import view.MainFrame;
 public class MainOnBoardSoftware {
     
     public static void main(String[] args) {
+        LogoFrame frameLogo = new LogoFrame();
         MainFrame frameView = new MainFrame();
     }
 }

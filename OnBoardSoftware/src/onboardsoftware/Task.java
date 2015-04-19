@@ -146,10 +146,10 @@ public class Task {
     
     @Override
     public String toString() {
-        return "cold=" + getColdWorkPermitNo()+" \n"  + "hot= " + getHotWorkPermitNo()+"\n"  + "issuedForDay= " + getIssuedForDay()+"\n"  + 
-                "workDescription= " + getWorkDescription()+"\n"  + "dateIssued= " + getDateIssued()+"\n"  + "moduleNumber= "+ getModuleNumber() +"\n"  + "areaAuthority= "+ 
-                getAreaAuthority() +"\n"  + "dateCompleted= " + getDateCompleted()+"\n"  + "ssic= "+ getSsic() +"\n"  + "epm= " + getEpm()+"\n"  + "esec= " + getEsec()+"\n"  + "lockOutBoxNo= "+ 
-                getLockOutBoxNo() +"\n"  +  "workContinuingUnderPermitNo= " + getWorkContinuingUnderPermitNo()+"\n";
+        return "<html><h1>" + "cold=" + getColdWorkPermitNo() + "<br>"  + "hot= " + getHotWorkPermitNo()+"<br>"  + "issuedForDay= " + getIssuedForDay()+"<br>"  + 
+                "workDescription= " + getWorkDescription()+"<br>"  + "dateIssued= " + getDateIssued()+"<br>"  + "moduleNumber= "+ getModuleNumber() +"<br>"  + "areaAuthority= "+ 
+                getAreaAuthority() +"<br>"  + "dateCompleted= " + getDateCompleted()+"<br>"  + "ssic= "+ getSsic() +"<br>"  + "epm= " + getEpm()+"<br>"  + "esec= " + getEsec()+"<br>"  + "lockOutBoxNo= "+ 
+                getLockOutBoxNo() +"<br>"  +  "workContinuingUnderPermitNo= " + getWorkContinuingUnderPermitNo()+"<br>" +"</h1></html>";
     }
     
     
