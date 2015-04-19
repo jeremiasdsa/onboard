@@ -48,13 +48,14 @@ public class MainFrame extends javax.swing.JFrame {
         
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+        
         myUpdate();
         
         
     }
     
     public void myUpdate(){
+        generateAllModules();
         setVisible(true);
         Icon initial_icon = new javax.swing.ImageIcon("src/view/image/DEMO PICS/ViewFromAbove.jpg");
         label_plantSection.setIcon(initial_icon);
@@ -67,9 +68,9 @@ public class MainFrame extends javax.swing.JFrame {
         label_plantSection.setVisible(true);
         add(ScrollPanel_plantShip);
         ScrollPanel_plantShip.setSize(1920,900);
-        setResizable(false);
+        setResizable(true);
         setVisible(true);
-        generateAllModules();
+        
     }
             
     
@@ -531,6 +532,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void Button_updateMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_updateMapActionPerformed
        aplyTasksInModules();
+       myUpdate();
     }//GEN-LAST:event_Button_updateMapActionPerformed
 
     private void Button_updateMapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_updateMapMouseClicked
