@@ -136,39 +136,6 @@ public class Frame_Main{
         
         scrollPanel_viewPlant.addMouseMotionListener(null);
         
-//        button_UpperDeck.addActionListener(
-//            new ActionListener(){
-//                @Override
-//                public void actionPerformed(ActionEvent ae){
-//                    System.out.println("Button was clicked");
-//                    new SwingWorker(){
-//                        @Override
-//                        protected Object doInBackground()throws Exception{
-////                            progressBar_importXLSX.setVisible(true);
-////                            for (int i = 0; i < 100000000; i++) {
-////                                progressBar_importXLSX.setValue(i);
-////                                new Date();
-////                            }
-////                            progressBar_importXLSX.setVisible(false);
-////                            setScrollImage(scrollPanel_viewPlant,"src/view/images_plants/ViewFromAbove.jpg");
-//                            return null;
-//                        }
-//                    }.execute();
-//            }
-//        });
-
-//        for(;;){
-//            try{    
-//                Thread.sleep(2000);
-//            }catch(InterruptedException ex){
-//            }
-//            SwingUtilities.invokeLater(new Runnable() {
-//                @Override
-//                public void run() {
-//                    theText.append("\nTickle"+new Date());
-//                }
-//            });
-//        }
     }
     
     private void initComponents(){
@@ -414,19 +381,5 @@ public class Frame_Main{
         
         
     }
-
-//    private void setScrollImage(JScrollPane scrollPane, String path){
-//        
-//        
-//        Icon initial_icon = new javax.swing.ImageIcon(path);
-//        this.label_viewPlant.setIcon(initial_icon);
-////        BufferedImage img = new BufferedImage(initial_icon.getIconWidth(), initial_icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
-////        Graphics g = img.createGraphics();
-////        initial_icon.paintIcon(null, g, 0, 0);
-////        g.dispose();
-////        Image newing = img.getScaledInstance((int)(this.label_viewPlant.getIcon().getIconWidth()/5.7), (int)(this.label_viewPlant.getIcon().getIconHeight()/5.7), java.awt.Image.SCALE_SMOOTH);
-////        this.label_viewPlant.setIcon(new ImageIcon(newing));
-//        scrollPane.add(this.label_viewPlant);
-//    }
     
 }
