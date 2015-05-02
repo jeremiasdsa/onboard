@@ -11,7 +11,14 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
+import model.Permit;
+import util.ReaderXLSX;
 
 
 
@@ -22,6 +29,7 @@ public class Frame_Main{
     private JPanel panel_bottons_viewPlants;
     private JPanel panel_viewPlants;
     
+    private JButton button_import;
     private JButton button_fromAbove;
     private JButton button_UpperDeck;
     private JButton button_SideView;
@@ -38,7 +46,7 @@ public class Frame_Main{
     private JButton button_ZoomIn;
     private JButton button_ZoomOut;
     
-    private double zoomValue = 3;
+    private double zoomValue = 2.2;
     
     private JPanel moduleTS022;
     private JPanel moduleTS021;
@@ -131,12 +139,124 @@ public class Frame_Main{
                     updateModules_FromAbove();
                 }
         });
-       
         
+        
+        button_import.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();
+                int r = chooser.showOpenDialog(null);
+                File f = chooser.getSelectedFile();
+                if (r == JFileChooser.APPROVE_OPTION) {
+                    String filename = f.getAbsolutePath();
+                    System.out.println(filename);
+
+                    SwingUtilities.invokeLater(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            ReaderXLSX read = new ReaderXLSX(filename);
+                            read.execute();
+                              updateModules_FromAbove();
+                            try {
+                                ArrayList<Permit> a = read.get();
+                                //System.out.println(a.toString());
+                                System.out.println("DONE");
+                                
+                                
+                                SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>() {
+
+                                    @Override
+                                    protected Boolean doInBackground() throws Exception {
+                                        for(Permit p : a){
+                                            //Thread.sleep(100);
+                                            applyPermitsInModules(p);  updateModules_FromAbove();
+                                        }
+                                        return true;
+                                    }
+                                    @Override
+                                    protected void done(){
+                                        try {
+                                            Boolean t = get();
+                                            if(t){
+                                                System.out.println("JOGUEI TODAS AS PERMITS DONE!");
+                                            }
+                                        } catch (InterruptedException ex) {
+                                            Logger.getLogger(Frame_Main.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (ExecutionException ex) {
+                                            Logger.getLogger(Frame_Main.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                        
+                                    }
+                                };
+                                
+                                worker.execute();
+                                          updateModules_FromAbove();
+                                
+                                        
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(Frame_Main.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (ExecutionException ex) {
+                                Logger.getLogger(Frame_Main.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    });
+                } else {
+                    System.out.println("CANCELED");
+                }
+                
+                  updateModules_FromAbove();
+                
+            }
+        });
         
         scrollPanel_viewPlant.addMouseMotionListener(null);
         
     }
+    
+    public void applyPermitsInModules(Permit permit){
+        javax.swing.JPanel t1 = new javax.swing.JPanel();
+            t1 = new javax.swing.JPanel();
+            t1.setSize(10, 10);
+            if(permit.isCold()){
+                t1.setBackground(Color.BLUE);
+                t1.setName(permit.getColdWorkPermitNo().toString());
+            }
+            else {
+                t1.setBackground(Color.RED);
+                t1.setName(permit.getHotWorkPermitNo().toString());
+            }
+            t1.setToolTipText(permit.toString());
+            if(permit.getModuleNumber().toString().compareTo("22.0")==0){
+                moduleTS022.add(t1);
+                //f.add(moduleTS022);    
+            }else if(permit.getModuleNumber().toString().compareTo("21.0")==0){
+                //f.add(moduleTS021);
+                moduleTS021.add(t1); 
+            }else if(permit.getModuleNumber().toString().compareTo("264.0")==0){
+                //f.add(moduleTS264);
+                moduleTS264.add(t1); 
+            }else if(permit.getModuleNumber().toString().compareTo("265.0")==0){
+                //f.add(moduleTS265);
+                moduleTS265.add(t1); 
+            }else if(permit.getModuleNumber().toString().compareTo("266.0")==0){
+                //f.add(moduleTS266);
+                moduleTS266.add(t1); 
+            }else if(permit.getModuleNumber().toString().compareTo("267.0")==0){
+                //f.add(moduleTS267);
+                moduleTS267.add(t1);
+            }else if(permit.getModuleNumber().toString().compareTo("62.0")==0){
+               // f.add(moduleTS062);
+                moduleTS062.add(t1);
+            }else if(permit.getModuleNumber().toString().compareTo("75.0")==0){
+                //f.add(moduleTS075);
+                moduleTS075.add(t1);
+            }else if(permit.getModuleNumber().toString().compareTo("63.0")==0){
+                //f.add(moduleTS063);
+                moduleTS063.add(t1);
+            } 
+    }
+    
     
     private void initComponents(){
         
@@ -148,7 +268,7 @@ public class Frame_Main{
         Toolkit tk = Toolkit.getDefaultToolkit();
         int xsize = (int) tk.getScreenSize().getWidth();
         int ysize = (int) tk.getScreenSize().getHeight();
-        this.frame_main.setSize(xsize, ysize);
+        this.frame_main.setSize(1400, 800);
         
         
 
@@ -163,6 +283,7 @@ public class Frame_Main{
         this.myConstraint.insets = new Insets(this.inset_leftSide, this.inset_rightSide, this.inset_topSide, this.inset_downSide);
         this.myConstraint.gridwidth = 3;
         
+        this.button_import = new JButton("ImportXLSX");
         this.button_fromAbove = new JButton("From Above");
         this.button_UpperDeck = new JButton("Upper Deck");
         this.button_SideView = new JButton("Side View");
@@ -358,6 +479,7 @@ public class Frame_Main{
         //Buttons to panel
         this.panel_bottons_viewPlants.add(button_ZoomIn,this.myConstraint);
         this.panel_bottons_viewPlants.add(button_ZoomOut,this.myConstraint);
+        this.panel_bottons_viewPlants.add(this.button_import,this.myConstraint);
         this.panel_bottons_viewPlants.add(this.button_fromAbove,this.myConstraint);
         this.panel_bottons_viewPlants.add(this.button_UpperDeck,this.myConstraint);
         this.panel_bottons_viewPlants.add(this.button_SideView,this.myConstraint);

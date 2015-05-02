@@ -5,6 +5,7 @@
  */
 package permittoworkdemo_2_0;
 
+import javax.swing.SwingUtilities;
 import view.Frame_Main;
 
 
@@ -19,7 +20,11 @@ public class PermitToWorkDEMO_2_0 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new Frame_Main().go();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Frame_Main().go();
+            }
+        });
     }
-    
 }
