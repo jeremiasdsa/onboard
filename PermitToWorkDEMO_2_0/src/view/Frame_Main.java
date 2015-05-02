@@ -35,7 +35,7 @@ public class Frame_Main{
     private JButton button_SideView;
     private JButton button_SunkenDeck;
     private JButton button_2ndDeck;
-    private JButton button_3ndDeck;
+    private JButton button_3rdDeck;
     private JButton button_TankTop;
     private JButton button_ADeck;
     private JButton button_BDeck;
@@ -48,30 +48,42 @@ public class Frame_Main{
     
     private double zoomValue = 2.2;
     
-    private JPanel moduleTS022;
-    private JPanel moduleTS021;
-    private JPanel moduleTS264;
-    private JPanel moduleTS265;
-    private JPanel moduleTS266;
-    private JPanel moduleTS267;
-    private JPanel moduleVE286;
-    private JPanel moduleTS062;
-    private JPanel moduleTS075;
-    private JPanel moduleTS063;
-    private JPanel moduleTS074;
-    private JPanel moduleTS076;
-    private JPanel moduleTS077;
-    private JPanel moduleTS289;
-    private JPanel moduleTS068;
-    private JPanel moduleTS011;
-    private JPanel moduleTS012;
-    private JPanel moduleTS005;
-    private JPanel moduleTS071;
-    private JPanel moduleTS073;
-    private JPanel moduleTS078;
-    private JPanel moduleTS079;
-    private JPanel moduleIT279;
-    private JPanel moduleTS072;
+    private JPanel moduleFromAbove_TS022;
+    private JPanel moduleFromAbove_TS021;
+    private JPanel moduleFromAbove_TS264;
+    private JPanel moduleFromAbove_TS265;
+    private JPanel moduleFromAbove_TS266;
+    private JPanel moduleFromAbove_TS267;
+    private JPanel moduleFromAbove_VE286;
+    private JPanel moduleFromAbove_TS062;
+    private JPanel moduleFromAbove_TS075;
+    private JPanel moduleFromAbove_TS063;
+    private JPanel moduleFromAbove_TS074;
+    private JPanel moduleFromAbove_TS076;
+    private JPanel moduleFromAbove_TS077;
+    private JPanel moduleFromAbove_TS289;
+    private JPanel moduleFromAbove_TS068;
+    private JPanel moduleFromAbove_TS011;
+    private JPanel moduleFromAbove_TS012;
+    private JPanel moduleFromAbove_TS005;
+    private JPanel moduleFromAbove_TS071;
+    private JPanel moduleFromAbove_TS073;
+    private JPanel moduleFromAbove_TS078;
+    private JPanel moduleFromAbove_TS079;
+    private JPanel moduleFromAbove_IT279;
+    private JPanel moduleFromAbove_TS072;
+    
+    //new modules to map and add in the plants >_<
+    // {
+    private JPanel moduleFromAbove_HeliDeck;
+    private JPanel moduleFromAbove_LifeBoat;
+    private JPanel moduleUpperDeck_PumpRoom;
+    private JPanel moduleSunkenDeck_PumpRoom;
+    private JPanel moduleSunkenDeck_FoamRoom;
+    private JPanel module2ndDeck_ER_EngineRoom;
+    
+    // }
+    //finish here
 
     private JLabel label_viewPlant;
     private JScrollPane scrollPanel_viewPlant;
@@ -86,6 +98,8 @@ public class Frame_Main{
     final private int inset_rightSide = 5;
     final private int inset_topSide = 5;
     final private int inset_downSide = 5;
+    
+    private String pathPlant = "src/view/images_plants/ViewFromAboveUpdated.jpg";
     
     public void go(){
         
@@ -102,20 +116,18 @@ public class Frame_Main{
                     
                     if(zoomValue<10){
                         zoomValue+=1;
-                        zoomValue=((int)(zoomValue*10))/10.0;
-                        System.out.println(zoomValue);
-                        Icon initial_icon = new javax.swing.ImageIcon("src/view/images_plants/ViewFromAbove.jpg");
+                        Icon initial_icon = new javax.swing.ImageIcon(pathPlant);
                         BufferedImage img = new BufferedImage(initial_icon.getIconWidth(), initial_icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
                         Graphics g = img.createGraphics();
                         initial_icon.paintIcon(null, g, 0, 0);
                         g.dispose();
-                        Image newing = img.getScaledInstance((int)(initial_icon.getIconWidth()*zoomValue/10), (int)(initial_icon.getIconHeight()*zoomValue/10), java.awt.Image.SCALE_FAST);
+                        Image newing = img.getScaledInstance((int)(initial_icon.getIconWidth()*zoomValue/10), (int)(initial_icon.getIconHeight()*zoomValue/10), java.awt.Image.SCALE_DEFAULT);
 
 
                         label_viewPlant.setIcon(new ImageIcon(newing));
                     }
                     
-                    updateModules_FromAbove();
+                    updateModules();
                 
                 }
         });
@@ -126,21 +138,18 @@ public class Frame_Main{
 
                     if(zoomValue>1){
                         zoomValue-=1;
-                        System.out.println(zoomValue);
-                        Icon initial_icon = new javax.swing.ImageIcon("src/view/images_plants/ViewFromAbove.jpg");
+                        Icon initial_icon = new javax.swing.ImageIcon(pathPlant);
                         BufferedImage img = new BufferedImage(initial_icon.getIconWidth(), initial_icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
                         Graphics g = img.createGraphics();
                         initial_icon.paintIcon(null, g, 0, 0);
                         g.dispose();
-                        Image newing = img.getScaledInstance((int)(initial_icon.getIconWidth()*zoomValue/10), (int)(initial_icon.getIconHeight()*zoomValue/10), java.awt.Image.SCALE_FAST);
+                        Image newing = img.getScaledInstance((int)(initial_icon.getIconWidth()*zoomValue/10), (int)(initial_icon.getIconHeight()*zoomValue/10), java.awt.Image.SCALE_DEFAULT);
                         label_viewPlant.setIcon(new ImageIcon(newing));
                     }
                     
-                    updateModules_FromAbove();
+                    updateModules();
                 }
         });
-        
-        
         button_import.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -157,7 +166,7 @@ public class Frame_Main{
                         public void run() {
                             ReaderXLSX read = new ReaderXLSX(filename);
                             read.execute();
-                              updateModules_FromAbove();
+                              updateModules();
                             try {
                                 ArrayList<Permit> a = read.get();
                                 //System.out.println(a.toString());
@@ -170,7 +179,7 @@ public class Frame_Main{
                                     protected Boolean doInBackground() throws Exception {
                                         for(Permit p : a){
                                             //Thread.sleep(100);
-                                            applyPermitsInModules(p);  updateModules_FromAbove();
+                                            applyPermitsInModules(p);  updateModules();
                                         }
                                         return true;
                                     }
@@ -191,7 +200,7 @@ public class Frame_Main{
                                 };
                                 
                                 worker.execute();
-                                          updateModules_FromAbove();
+                                          updateModules();
                                 
                                         
                             } catch (InterruptedException ex) {
@@ -205,13 +214,189 @@ public class Frame_Main{
                     System.out.println("CANCELED");
                 }
                 
-                  updateModules_FromAbove();
+                  updateModules();
                 
             }
         });
         
+        button_fromAbove.addActionListener(
+                new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae){
+                    pathPlant = "src/view/images_plants/ViewFromAboveUpdated.jpg";
+                    cleanViewPlant();
+                    moduleFromAbove_TS022.setVisible(true);
+                    moduleFromAbove_TS021.setVisible(true);
+                    moduleFromAbove_TS264.setVisible(true);
+                    moduleFromAbove_TS265.setVisible(true);
+                    moduleFromAbove_TS266.setVisible(true);
+                    moduleFromAbove_TS267.setVisible(true);
+                    moduleFromAbove_TS062.setVisible(true);
+                    moduleFromAbove_TS075.setVisible(true);
+                    moduleFromAbove_TS063.setVisible(true);
+                    moduleFromAbove_TS074.setVisible(true);
+                    moduleFromAbove_TS076.setVisible(true);
+                    moduleFromAbove_TS077.setVisible(true);
+                    moduleFromAbove_TS289.setVisible(true);
+                    moduleFromAbove_TS068.setVisible(true);
+                    moduleFromAbove_TS011.setVisible(true);
+                    moduleFromAbove_TS012.setVisible(true);
+                    moduleFromAbove_TS005.setVisible(true);
+                    moduleFromAbove_TS071.setVisible(true);
+                    moduleFromAbove_TS073.setVisible(true);
+                    moduleFromAbove_TS078.setVisible(true);
+                    moduleFromAbove_TS079.setVisible(true);
+                    moduleFromAbove_TS072.setVisible(true);
+                    moduleFromAbove_HeliDeck.setVisible(true);
+                    moduleFromAbove_LifeBoat.setVisible(true);
+                    updateImageViewPlant(pathPlant);
+                    
+                }
+        });
+        button_UpperDeck.addActionListener(
+                new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae){
+                    pathPlant = "src/view/images_plants/UpperDeckUpdated.jpg";
+                    cleanViewPlant();
+                    moduleUpperDeck_PumpRoom.setVisible(true);
+                    updateImageViewPlant(pathPlant);
+                    
+                }
+        });
+        button_SideView.addActionListener(
+                new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae){
+                    pathPlant = "src/view/images_plants/SideView.jpg";
+                    cleanViewPlant();
+                    updateImageViewPlant(pathPlant);
+                }
+        });
+        button_SunkenDeck.addActionListener(
+                new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae){
+                    pathPlant = "src/view/images_plants/SunkenDeckUpdated.jpg";
+                    cleanViewPlant();
+                    updateImageViewPlant(pathPlant);
+                }
+        });
+        button_2ndDeck.addActionListener(
+                new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae){
+                    pathPlant = "src/view/images_plants/2ndDeck.jpg";
+                    cleanViewPlant();
+                    updateImageViewPlant(pathPlant);
+                }
+        });
+        button_3rdDeck.addActionListener(
+                new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae){
+                    pathPlant = "src/view/images_plants/3rdDeck.jpg";
+                    cleanViewPlant();
+                    updateImageViewPlant(pathPlant);
+                }
+        });
+        button_TankTop.addActionListener(
+                new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae){
+                    pathPlant = "src/view/images_plants/Tank Top.jpg";
+                    cleanViewPlant();
+                    updateImageViewPlant(pathPlant);
+                }
+        });
+        button_ADeck.addActionListener(
+                new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae){
+                    pathPlant = "src/view/images_plants/A-Deck.jpg";
+                    cleanViewPlant();
+                    updateImageViewPlant(pathPlant);
+                }
+        });
+        button_BDeck.addActionListener(
+                new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae){
+                    pathPlant = "src/view/images_plants/B-Deck.jpg";
+                    cleanViewPlant();
+                    updateImageViewPlant(pathPlant);
+                }
+        });
+        button_CDeck.addActionListener(
+                new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae){
+                    pathPlant = "src/view/images_plants/C-Deck.jpg";
+                    cleanViewPlant();
+                    updateImageViewPlant(pathPlant);
+                }
+        });
+        button_EnifDeck.addActionListener(
+                new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae){
+                    pathPlant = "src/view/images_plants/ENIF Deck.jpg";
+                    cleanViewPlant();
+                    updateImageViewPlant(pathPlant);
+                }
+        });
+        button_More.addActionListener(
+                new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent ae){
+                    pathPlant = "src/view/images_plants/More.jpg";
+                    cleanViewPlant();
+                    updateImageViewPlant(pathPlant);
+                }
+        });
+        
         scrollPanel_viewPlant.addMouseMotionListener(null);
         
+    }
+    
+    private void cleanViewPlant(){
+        
+        moduleFromAbove_TS022.setVisible(false);
+        moduleFromAbove_TS021.setVisible(false);
+        moduleFromAbove_TS264.setVisible(false);
+        moduleFromAbove_TS265.setVisible(false);
+        moduleFromAbove_TS266.setVisible(false);
+        moduleFromAbove_TS267.setVisible(false);
+        moduleFromAbove_TS062.setVisible(false);
+        moduleFromAbove_TS075.setVisible(false);
+        moduleFromAbove_TS063.setVisible(false);
+        moduleFromAbove_TS074.setVisible(false);
+        moduleFromAbove_TS076.setVisible(false);
+        moduleFromAbove_TS077.setVisible(false);
+        moduleFromAbove_TS289.setVisible(false);
+        moduleFromAbove_TS068.setVisible(false);
+        moduleFromAbove_TS011.setVisible(false);
+        moduleFromAbove_TS012.setVisible(false);
+        moduleFromAbove_TS005.setVisible(false);
+        moduleFromAbove_TS071.setVisible(false);
+        moduleFromAbove_TS073.setVisible(false);
+        moduleFromAbove_TS078.setVisible(false);
+        moduleFromAbove_TS079.setVisible(false);
+        moduleFromAbove_TS072.setVisible(false);
+        moduleFromAbove_HeliDeck.setVisible(false);
+        moduleFromAbove_LifeBoat.setVisible(false);
+        moduleUpperDeck_PumpRoom.setVisible(false);
+      
+    }
+   
+    private void updateImageViewPlant(String path){
+        Icon initial_icon = new javax.swing.ImageIcon(pathPlant);
+        BufferedImage img = new BufferedImage(initial_icon.getIconWidth(), initial_icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics g = img.createGraphics();
+        initial_icon.paintIcon(null, g, 0, 0);
+        g.dispose();
+        Image newing = img.getScaledInstance((int)(initial_icon.getIconWidth()*zoomValue/10), (int)(initial_icon.getIconHeight()*zoomValue/10), java.awt.Image.SCALE_DEFAULT);
+        label_viewPlant.setIcon(new ImageIcon(newing));
     }
     
     public void applyPermitsInModules(Permit permit){
@@ -226,37 +411,37 @@ public class Frame_Main{
                 t1.setBackground(Color.RED);
                 t1.setName(permit.getHotWorkPermitNo().toString());
             }
+            System.out.println(permit.getModuleNumber().toString());
             t1.setToolTipText(permit.toString());
             if(permit.getModuleNumber().toString().compareTo("22.0")==0){
-                moduleTS022.add(t1);
+                moduleFromAbove_TS022.add(t1);
                 //f.add(moduleTS022);    
             }else if(permit.getModuleNumber().toString().compareTo("21.0")==0){
                 //f.add(moduleTS021);
-                moduleTS021.add(t1); 
+                moduleFromAbove_TS021.add(t1); 
             }else if(permit.getModuleNumber().toString().compareTo("264.0")==0){
                 //f.add(moduleTS264);
-                moduleTS264.add(t1); 
+                moduleFromAbove_TS264.add(t1); 
             }else if(permit.getModuleNumber().toString().compareTo("265.0")==0){
                 //f.add(moduleTS265);
-                moduleTS265.add(t1); 
+                moduleFromAbove_TS265.add(t1); 
             }else if(permit.getModuleNumber().toString().compareTo("266.0")==0){
                 //f.add(moduleTS266);
-                moduleTS266.add(t1); 
+                moduleFromAbove_TS266.add(t1); 
             }else if(permit.getModuleNumber().toString().compareTo("267.0")==0){
                 //f.add(moduleTS267);
-                moduleTS267.add(t1);
+                moduleFromAbove_TS267.add(t1);
             }else if(permit.getModuleNumber().toString().compareTo("62.0")==0){
                // f.add(moduleTS062);
-                moduleTS062.add(t1);
+                moduleFromAbove_TS062.add(t1);
             }else if(permit.getModuleNumber().toString().compareTo("75.0")==0){
                 //f.add(moduleTS075);
-                moduleTS075.add(t1);
+                moduleFromAbove_TS075.add(t1);
             }else if(permit.getModuleNumber().toString().compareTo("63.0")==0){
                 //f.add(moduleTS063);
-                moduleTS063.add(t1);
+                moduleFromAbove_TS063.add(t1);
             } 
     }
-    
     
     private void initComponents(){
         
@@ -289,7 +474,7 @@ public class Frame_Main{
         this.button_SideView = new JButton("Side View");
         this.button_SunkenDeck = new JButton("Sunken Deck");
         this.button_2ndDeck = new JButton("2nd Deck");
-        this.button_3ndDeck = new JButton("3nd Deck");
+        this.button_3rdDeck = new JButton("3nd Deck");
         this.button_TankTop = new JButton("Tank Top");
         this.button_ADeck = new JButton("A Deck");
         this.button_BDeck = new JButton("B Deck");
@@ -304,7 +489,7 @@ public class Frame_Main{
         this.panel_viewPlants.setLayout(new BorderLayout());
         
         
-        Icon initial_icon = new javax.swing.ImageIcon("src/view/images_plants/ViewFromAbove.jpg");
+        Icon initial_icon = new javax.swing.ImageIcon(pathPlant);
         BufferedImage img = new BufferedImage(initial_icon.getIconWidth(), initial_icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics g = img.createGraphics();
         initial_icon.paintIcon(null, g, 0, 0);
@@ -317,52 +502,61 @@ public class Frame_Main{
         this.label_viewPlant.setVerticalAlignment(SwingConstants.TOP);
         
         
+        //initialization of All Modules
+        this.moduleFromAbove_TS022 = new JPanel();
+        this.moduleFromAbove_TS021 = new JPanel();
+        this.moduleFromAbove_TS264 = new JPanel();
+        this.moduleFromAbove_TS265 = new JPanel();
+        this.moduleFromAbove_TS266 = new JPanel();
+        this.moduleFromAbove_TS267 = new JPanel();
+        this.moduleFromAbove_TS062 = new JPanel();
+        this.moduleFromAbove_TS075 = new JPanel();
+        this.moduleFromAbove_TS063 = new JPanel();
+        this.moduleFromAbove_TS074 = new JPanel();
+        this.moduleFromAbove_TS076 = new JPanel();
+        this.moduleFromAbove_TS077 = new JPanel();
+        this.moduleFromAbove_TS289 = new JPanel();
+        this.moduleFromAbove_TS068 = new JPanel();
+        this.moduleFromAbove_TS011 = new JPanel();
+        this.moduleFromAbove_TS012 = new JPanel();
+        this.moduleFromAbove_TS005 = new JPanel();
+        this.moduleFromAbove_TS071 = new JPanel();
+        this.moduleFromAbove_TS073 = new JPanel();
+        this.moduleFromAbove_TS078 = new JPanel();
+        this.moduleFromAbove_TS079 = new JPanel();
+        this.moduleFromAbove_TS072 = new JPanel();
+        this.moduleFromAbove_HeliDeck = new JPanel();
+        this.moduleFromAbove_LifeBoat = new JPanel();
+        this.moduleUpperDeck_PumpRoom = new JPanel();
+        updateModules();
+        //initial modules to view From Above
+        this.panel_viewPlants.add(this.moduleFromAbove_TS022);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS021);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS264);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS265);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS266);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS267);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS062);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS075);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS063);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS074);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS076);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS077);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS289);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS068);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS011);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS012);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS005);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS071);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS073);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS078);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS079);
+        this.panel_viewPlants.add(this.moduleFromAbove_TS072);
+        this.panel_viewPlants.add(this.moduleFromAbove_HeliDeck);
+        this.panel_viewPlants.add(this.moduleFromAbove_LifeBoat);
         
-        this.moduleTS022 = new JPanel();
-        this.moduleTS021 = new JPanel();
-        this.moduleTS264 = new JPanel();
-        this.moduleTS265 = new JPanel();
-        this.moduleTS266 = new JPanel();
-        this.moduleTS267 = new JPanel();
-        this.moduleTS062 = new JPanel();
-        this.moduleTS075 = new JPanel();
-        this.moduleTS063 = new JPanel();
-        this.moduleTS074 = new JPanel();
-        this.moduleTS076 = new JPanel();
-        this.moduleTS077 = new JPanel();
-        this.moduleTS289 = new JPanel();
-        this.moduleTS068 = new JPanel();
-        this.moduleTS011 = new JPanel();
-        this.moduleTS012 = new JPanel();
-        this.moduleTS005 = new JPanel();
-        this.moduleTS071 = new JPanel();
-        this.moduleTS073 = new JPanel();
-        this.moduleTS078 = new JPanel();
-        this.moduleTS079 = new JPanel();
-        this.moduleTS072 = new JPanel();
-        updateModules_FromAbove();
-        this.panel_viewPlants.add(this.moduleTS022);
-        this.panel_viewPlants.add(this.moduleTS021);
-        this.panel_viewPlants.add(this.moduleTS264);
-        this.panel_viewPlants.add(this.moduleTS265);
-        this.panel_viewPlants.add(this.moduleTS266);
-        this.panel_viewPlants.add(this.moduleTS267);
-        this.panel_viewPlants.add(this.moduleTS062);
-        this.panel_viewPlants.add(this.moduleTS075);
-        this.panel_viewPlants.add(this.moduleTS063);
-        this.panel_viewPlants.add(this.moduleTS074);
-        this.panel_viewPlants.add(this.moduleTS076);
-        this.panel_viewPlants.add(this.moduleTS077);
-        this.panel_viewPlants.add(this.moduleTS289);
-        this.panel_viewPlants.add(this.moduleTS068);
-        this.panel_viewPlants.add(this.moduleTS011);
-        this.panel_viewPlants.add(this.moduleTS012);
-        this.panel_viewPlants.add(this.moduleTS005);
-        this.panel_viewPlants.add(this.moduleTS071);
-        this.panel_viewPlants.add(this.moduleTS073);
-        this.panel_viewPlants.add(this.moduleTS078);
-        this.panel_viewPlants.add(this.moduleTS079);
-        this.panel_viewPlants.add(this.moduleTS072);
+        this.panel_viewPlants.add(this.moduleUpperDeck_PumpRoom);
+        this.moduleUpperDeck_PumpRoom.setVisible(false);
         
         this.panel_viewPlants.add(this.label_viewPlant);
       
@@ -376,102 +570,111 @@ public class Frame_Main{
         
     }
     
-    public void updateModules_FromAbove(){
+    public void updateModules(){
         
         
-        this.moduleTS022.setLocation((int)(2637*zoomValue/10),(int)(600*zoomValue/10));
-        this.moduleTS022.setSize((int)(576*zoomValue/10), (int)(795*zoomValue/10));
-        this.moduleTS022.setBackground(new Color(0,0,255,80));
+        this.moduleFromAbove_TS022.setLocation((int)(2637*zoomValue/10),(int)(600*zoomValue/10));
+        this.moduleFromAbove_TS022.setSize((int)(576*zoomValue/10), (int)(795*zoomValue/10));
+        this.moduleFromAbove_TS022.setBackground(new Color(0,0,255,80));
         
+        this.moduleFromAbove_TS021.setLocation((int)(3272*zoomValue/10),(int)(600*zoomValue/10));
+        this.moduleFromAbove_TS021.setSize((int)(709*zoomValue/10), (int)(795*zoomValue/10));
+        this.moduleFromAbove_TS021.setBackground(new Color(0,255,0,80));
         
-        this.moduleTS021.setLocation((int)(3272*zoomValue/10),(int)(600*zoomValue/10));
-        this.moduleTS021.setSize((int)(709*zoomValue/10), (int)(795*zoomValue/10));
-        this.moduleTS021.setBackground(new Color(0,255,0,80));
+        this.moduleFromAbove_TS264.setLocation((int)(4053*zoomValue/10),(int)(573*zoomValue/10));
+        this.moduleFromAbove_TS264.setSize((int)(877*zoomValue/10), (int)(261*zoomValue/10));
+        this.moduleFromAbove_TS264.setBackground(new Color(255,0,0,80));
         
-        this.moduleTS264.setLocation((int)(4053*zoomValue/10),(int)(573*zoomValue/10));
-        this.moduleTS264.setSize((int)(877*zoomValue/10), (int)(261*zoomValue/10));
-        this.moduleTS264.setBackground(new Color(255,0,0,80));
+        this.moduleFromAbove_TS265.setLocation((int)(4980*zoomValue/10),(int)(548*zoomValue/10));
+        this.moduleFromAbove_TS265.setSize((int)(719*zoomValue/10), (int)(295*zoomValue/10));
+        this.moduleFromAbove_TS265.setBackground(new Color(255,0,0,80));
         
-        this.moduleTS265.setLocation((int)(4980*zoomValue/10),(int)(548*zoomValue/10));
-        this.moduleTS265.setSize((int)(719*zoomValue/10), (int)(295*zoomValue/10));
-        this.moduleTS265.setBackground(new Color(255,0,0,80));
+        this.moduleFromAbove_TS266.setLocation((int)(5764*zoomValue/10),(int)(525*zoomValue/10));
+        this.moduleFromAbove_TS266.setSize((int)(717*zoomValue/10), (int)(321*zoomValue/10));
+        this.moduleFromAbove_TS266.setBackground(new Color(255,0,0,80));
         
-        this.moduleTS266.setLocation((int)(5764*zoomValue/10),(int)(525*zoomValue/10));
-        this.moduleTS266.setSize((int)(717*zoomValue/10), (int)(321*zoomValue/10));
-        this.moduleTS266.setBackground(new Color(255,0,0,80));
-        
-        this.moduleTS267.setLocation((int)(6545*zoomValue/10),(int)(580*zoomValue/10));
-        this.moduleTS267.setSize((int)(851*zoomValue/10), (int)(259*zoomValue/10));
-        this.moduleTS267.setBackground(new Color(255,0,2,80));
+        this.moduleFromAbove_TS267.setLocation((int)(6545*zoomValue/10),(int)(580*zoomValue/10));
+        this.moduleFromAbove_TS267.setSize((int)(851*zoomValue/10), (int)(259*zoomValue/10));
+        this.moduleFromAbove_TS267.setBackground(new Color(255,0,2,80));
    
-        this.moduleTS062.setLocation((int)(4189*zoomValue/10),(int)(900*zoomValue/10));
-        this.moduleTS062.setSize((int)(719*zoomValue/10), (int)(497*zoomValue/10));
-        this.moduleTS062.setBackground(new Color(0,0,255,80));
+        this.moduleFromAbove_TS062.setLocation((int)(4189*zoomValue/10),(int)(900*zoomValue/10));
+        this.moduleFromAbove_TS062.setSize((int)(719*zoomValue/10), (int)(497*zoomValue/10));
+        this.moduleFromAbove_TS062.setBackground(new Color(0,0,255,80));
         
-        this.moduleTS075.setLocation((int)(4985*zoomValue/10),(int)(900*zoomValue/10));
-        this.moduleTS075.setSize((int)(719*zoomValue/10), (int)(497*zoomValue/10));
-        this.moduleTS075.setBackground(new Color(0,255,0,80));
+        this.moduleFromAbove_TS075.setLocation((int)(4985*zoomValue/10),(int)(900*zoomValue/10));
+        this.moduleFromAbove_TS075.setSize((int)(719*zoomValue/10), (int)(497*zoomValue/10));
+        this.moduleFromAbove_TS075.setBackground(new Color(0,255,0,80));
         
-        this.moduleTS063.setLocation((int)(5761*zoomValue/10),(int)(900*zoomValue/10));
-        this.moduleTS063.setSize((int)(709*zoomValue/10), (int)(503*zoomValue/10));
-        this.moduleTS063.setBackground(new Color(0,0,255,80));
+        this.moduleFromAbove_TS063.setLocation((int)(5761*zoomValue/10),(int)(900*zoomValue/10));
+        this.moduleFromAbove_TS063.setSize((int)(709*zoomValue/10), (int)(503*zoomValue/10));
+        this.moduleFromAbove_TS063.setBackground(new Color(0,0,255,80));
         
-        this.moduleTS074.setLocation((int)(6545*zoomValue/10),(int)(900*zoomValue/10));
-        this.moduleTS074.setSize((int)(875*zoomValue/10), (int)(503*zoomValue/10));
-        this.moduleTS074.setBackground(new Color(0,255,0,80));
+        this.moduleFromAbove_TS074.setLocation((int)(6545*zoomValue/10),(int)(900*zoomValue/10));
+        this.moduleFromAbove_TS074.setSize((int)(875*zoomValue/10), (int)(503*zoomValue/10));
+        this.moduleFromAbove_TS074.setBackground(new Color(0,255,0,80));
         
-        this.moduleTS076.setLocation((int)(7477*zoomValue/10),(int)(820*zoomValue/10));
-        this.moduleTS076.setSize((int)(721*zoomValue/10), (int)(585*zoomValue/10));
-        this.moduleTS076.setBackground(new Color(0,0,255,80));
+        this.moduleFromAbove_TS076.setLocation((int)(7477*zoomValue/10),(int)(820*zoomValue/10));
+        this.moduleFromAbove_TS076.setSize((int)(721*zoomValue/10), (int)(585*zoomValue/10));
+        this.moduleFromAbove_TS076.setBackground(new Color(0,0,255,80));
         
-        this.moduleTS077.setLocation((int)(8257*zoomValue/10),(int)(867*zoomValue/10));
-        this.moduleTS077.setSize((int)(709*zoomValue/10), (int)(527*zoomValue/10));
-        this.moduleTS077.setBackground(new Color(0,255,0,80));
+        this.moduleFromAbove_TS077.setLocation((int)(8257*zoomValue/10),(int)(867*zoomValue/10));
+        this.moduleFromAbove_TS077.setSize((int)(709*zoomValue/10), (int)(527*zoomValue/10));
+        this.moduleFromAbove_TS077.setBackground(new Color(0,255,0,80));
         
-        this.moduleTS289.setLocation((int)(9145*zoomValue/10),(int)(1225*zoomValue/10));
-        this.moduleTS289.setSize((int)(391*zoomValue/10), (int)(347*zoomValue/10));
-        this.moduleTS289.setBackground(new Color(255,0,0,80));
+        this.moduleFromAbove_TS289.setLocation((int)(9145*zoomValue/10),(int)(1225*zoomValue/10));
+        this.moduleFromAbove_TS289.setSize((int)(391*zoomValue/10), (int)(347*zoomValue/10));
+        this.moduleFromAbove_TS289.setBackground(new Color(255,0,0,80));
         
-        this.moduleTS068.setLocation((int)(2109*zoomValue/10),(int)(1437*zoomValue/10));
-        this.moduleTS068.setSize((int)(469*zoomValue/10), (int)(775*zoomValue/10));
-        this.moduleTS068.setBackground(new Color(0,0,255,80));
+        this.moduleFromAbove_TS068.setLocation((int)(2109*zoomValue/10),(int)(1437*zoomValue/10));
+        this.moduleFromAbove_TS068.setSize((int)(469*zoomValue/10), (int)(775*zoomValue/10));
+        this.moduleFromAbove_TS068.setBackground(new Color(0,0,255,80));
         
-        this.moduleTS011.setLocation((int)(2627*zoomValue/10),(int)(1429*zoomValue/10));
-        this.moduleTS011.setSize((int)(737*zoomValue/10), (int)(737*zoomValue/10));
-        this.moduleTS011.setBackground(new Color(0,255,0,80));
+        this.moduleFromAbove_TS011.setLocation((int)(2627*zoomValue/10),(int)(1429*zoomValue/10));
+        this.moduleFromAbove_TS011.setSize((int)(737*zoomValue/10), (int)(737*zoomValue/10));
+        this.moduleFromAbove_TS011.setBackground(new Color(0,255,0,80));
         
-        this.moduleTS012.setLocation((int)(3411*zoomValue/10),(int)(1433*zoomValue/10));
-        this.moduleTS012.setSize((int)(731*zoomValue/10), (int)(741*zoomValue/10));
-        this.moduleTS012.setBackground(new Color(0,0,255,80));
+        this.moduleFromAbove_TS012.setLocation((int)(3411*zoomValue/10),(int)(1433*zoomValue/10));
+        this.moduleFromAbove_TS012.setSize((int)(731*zoomValue/10), (int)(741*zoomValue/10));
+        this.moduleFromAbove_TS012.setBackground(new Color(0,0,255,80));
         
-        this.moduleTS005.setLocation((int)(4200*zoomValue/10),(int)(1435*zoomValue/10));
-        this.moduleTS005.setSize((int)(721*zoomValue/10), (int)(655*zoomValue/10));
-        this.moduleTS005.setBackground(new Color(0,255,0,80));
+        this.moduleFromAbove_TS005.setLocation((int)(4200*zoomValue/10),(int)(1435*zoomValue/10));
+        this.moduleFromAbove_TS005.setSize((int)(721*zoomValue/10), (int)(655*zoomValue/10));
+        this.moduleFromAbove_TS005.setBackground(new Color(0,255,0,80));
         
-        this.moduleTS071.setLocation((int)(4987*zoomValue/10),(int)(1431*zoomValue/10));
-        this.moduleTS071.setSize((int)(715*zoomValue/10), (int)(775*zoomValue/10));
-        this.moduleTS071.setBackground(new Color(0,0,255,80));
+        this.moduleFromAbove_TS071.setLocation((int)(4987*zoomValue/10),(int)(1431*zoomValue/10));
+        this.moduleFromAbove_TS071.setSize((int)(715*zoomValue/10), (int)(775*zoomValue/10));
+        this.moduleFromAbove_TS071.setBackground(new Color(0,0,255,80));
         
-        this.moduleTS073.setLocation((int)(5757*zoomValue/10),(int)(1433*zoomValue/10));
-        this.moduleTS073.setSize((int)(875*zoomValue/10), (int)(789*zoomValue/10));
-        this.moduleTS073.setBackground(new Color(0,255,0,80));
+        this.moduleFromAbove_TS073.setLocation((int)(5757*zoomValue/10),(int)(1433*zoomValue/10));
+        this.moduleFromAbove_TS073.setSize((int)(875*zoomValue/10), (int)(789*zoomValue/10));
+        this.moduleFromAbove_TS073.setBackground(new Color(0,255,0,80));
         
-        this.moduleTS078.setLocation((int)(6697*zoomValue/10),(int)(1429*zoomValue/10));
-        this.moduleTS078.setSize((int)(723*zoomValue/10), (int)(715*zoomValue/10));
-        this.moduleTS078.setBackground(new Color(0,0,255,80));
+        this.moduleFromAbove_TS078.setLocation((int)(6697*zoomValue/10),(int)(1429*zoomValue/10));
+        this.moduleFromAbove_TS078.setSize((int)(723*zoomValue/10), (int)(715*zoomValue/10));
+        this.moduleFromAbove_TS078.setBackground(new Color(0,0,255,80));
         
-        this.moduleTS079.setLocation((int)(7483*zoomValue/10),(int)(1433*zoomValue/10));
-        this.moduleTS079.setSize((int)(723*zoomValue/10), (int)(847*zoomValue/10));
-        this.moduleTS079.setBackground(new Color(0,255,0,80));
+        this.moduleFromAbove_TS079.setLocation((int)(7483*zoomValue/10),(int)(1433*zoomValue/10));
+        this.moduleFromAbove_TS079.setSize((int)(723*zoomValue/10), (int)(847*zoomValue/10));
+        this.moduleFromAbove_TS079.setBackground(new Color(0,255,0,80));
         
-        this.moduleTS072.setLocation((int)(8263*zoomValue/10),(int)(1433*zoomValue/10));
-        this.moduleTS072.setSize((int)(719*zoomValue/10), (int)(553*zoomValue/10));
-        this.moduleTS072.setBackground(new Color(0,0,255,80));
+        this.moduleFromAbove_TS072.setLocation((int)(8263*zoomValue/10),(int)(1433*zoomValue/10));
+        this.moduleFromAbove_TS072.setSize((int)(719*zoomValue/10), (int)(553*zoomValue/10));
+        this.moduleFromAbove_TS072.setBackground(new Color(0,0,255,80));
         
+        this.moduleFromAbove_HeliDeck.setLocation((int)(5*zoomValue/10),(int)(1001*zoomValue/10));
+        this.moduleFromAbove_HeliDeck.setSize((int)(843*zoomValue/10), (int)(783*zoomValue/10));
+        this.moduleFromAbove_HeliDeck.setBackground(new Color(0,255,255,80));
+        
+        this.moduleFromAbove_LifeBoat.setLocation((int)(1100*zoomValue/10),(int)(600*zoomValue/10));
+        this.moduleFromAbove_LifeBoat.setSize((int)(843*zoomValue/10), (int)(400*zoomValue/10));
+        this.moduleFromAbove_LifeBoat.setBackground(new Color(0,255,255,80));
+        
+        this.moduleUpperDeck_PumpRoom.setLocation((int)(2050*zoomValue/10),(int)(1324*zoomValue/10));
+        this.moduleUpperDeck_PumpRoom.setSize((int)(157*zoomValue/10), (int)(190*zoomValue/10));
+        this.moduleUpperDeck_PumpRoom.setBackground(new Color(0,255,255,80));
         
     }
-            
-    
+       
     private void addContentsToContents(){
         
         this.menuBar.add(menuComponent_file);
@@ -485,7 +688,7 @@ public class Frame_Main{
         this.panel_bottons_viewPlants.add(this.button_SideView,this.myConstraint);
         this.panel_bottons_viewPlants.add(this.button_SunkenDeck,this.myConstraint);
         this.panel_bottons_viewPlants.add(this.button_2ndDeck,this.myConstraint);
-        this.panel_bottons_viewPlants.add(this.button_3ndDeck,this.myConstraint);
+        this.panel_bottons_viewPlants.add(this.button_3rdDeck,this.myConstraint);
         this.panel_bottons_viewPlants.add(this.button_TankTop,this.myConstraint);
         this.panel_bottons_viewPlants.add(this.button_ADeck,this.myConstraint);
         this.panel_bottons_viewPlants.add(this.button_BDeck,this.myConstraint);
@@ -495,10 +698,8 @@ public class Frame_Main{
 
         this.frame_main.getContentPane().add(this.panel_bottons_viewPlants,BorderLayout.NORTH);
         
-       
         this.frame_main.add(this.scrollPanel_viewPlant);
         
-
         this.frame_main.setVisible(true);
         
         
