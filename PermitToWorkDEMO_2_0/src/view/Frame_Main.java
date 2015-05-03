@@ -124,8 +124,8 @@ public class Frame_Main{
     private JScrollPane scrollPanel_viewPlant;
     private JProgressBar progressBar_importXLSX;
     
-    private JMenuBar menuBar;
-    private JMenu menuComponent_file;
+//    private JMenuBar menuBar;
+//    private JMenu menuComponent_file;
     
     private GridBagConstraints myConstraint;
 
@@ -546,7 +546,7 @@ public class Frame_Main{
                 t1.setName(permit.getHotWorkPermitNo().toString());
             }
             
-            System.out.println(permit.getModuleNumber().toString());
+//            System.out.println(permit.getModuleNumber().toString());
             t1.setToolTipText(permit.toString());
             if(permit.getModuleNumber().toString().equalsIgnoreCase("22.0")){
                 moduleFromAbove_TS022.add(t1);
@@ -674,9 +674,9 @@ public class Frame_Main{
         int ysize = (int) tk.getScreenSize().getHeight();
         this.frame_main.setSize(1400, 800);
         
-        this.menuBar = new JMenuBar();
-        this.frame_main.setJMenuBar(this.menuBar);
-        this.menuComponent_file = new JMenu("File");
+//        this.menuBar = new JMenuBar();
+//        this.frame_main.setJMenuBar(this.menuBar);
+//        this.menuComponent_file = new JMenu("File");
         
         this.myConstraint = new GridBagConstraints();
         
@@ -1052,10 +1052,7 @@ public class Frame_Main{
         this.moduleMore_UpperECRDeck.setLocation((int)(3200*zoomValue/10),(int)(2500*zoomValue/10));
         this.moduleMore_UpperECRDeck.setSize((int)(1100*zoomValue/10), (int)(1800*zoomValue/10));
         this.moduleMore_UpperECRDeck.setBackground(new Color(255,255,0,50));
-        
-        
-        
-        
+
         
         this.moduleSideView_ADeck.setLocation((int)(2120*zoomValue/10),(int)(1303*zoomValue/10));
         this.moduleSideView_ADeck.setSize((int)(501*zoomValue/10), (int)(107*zoomValue/10));
@@ -1133,7 +1130,7 @@ public class Frame_Main{
        
     private void addContentsToContents(){
         
-        this.menuBar.add(menuComponent_file);
+//        this.menuBar.add(menuComponent_file);
 
         //Buttons to panel
         this.panel_bottons_viewPlants.add(button_ZoomIn,this.myConstraint);
