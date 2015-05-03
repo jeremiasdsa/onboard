@@ -517,6 +517,22 @@ public class Frame_Main{
         label_viewPlant.setIcon(new ImageIcon(newing));
     }
     
+    private JPanel generateT(Permit permit){
+        javax.swing.JPanel t = new javax.swing.JPanel();
+        t = new javax.swing.JPanel();
+        t.setSize(10, 10);
+        if(permit.isCold()){
+            t.setBackground(Color.BLUE);
+            t.setName(permit.getColdWorkPermitNo().toString());
+        }
+        else {
+            t.setBackground(Color.RED);
+            t.setName(permit.getHotWorkPermitNo().toString());
+        }
+        t.setToolTipText(permit.toString());
+        return t;
+    }
+    
     public void applyPermitsInModules(Permit permit){
         javax.swing.JPanel t1 = new javax.swing.JPanel();
             t1 = new javax.swing.JPanel();
@@ -534,30 +550,21 @@ public class Frame_Main{
             t1.setToolTipText(permit.toString());
             if(permit.getModuleNumber().toString().equalsIgnoreCase("22.0")){
                 moduleFromAbove_TS022.add(t1);
-                //f.add(moduleTS022);    
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("21.0")){
-                //f.add(moduleTS021);
                 moduleFromAbove_TS021.add(t1); 
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("264.0")){
-                //f.add(moduleTS264);
                 moduleFromAbove_TS264.add(t1); 
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("265.0")){
-                //f.add(moduleTS265);
                 moduleFromAbove_TS265.add(t1); 
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("266.0")){
-                //f.add(moduleTS266);
                 moduleFromAbove_TS266.add(t1); 
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("267.0")){
-                //f.add(moduleTS267);
                 moduleFromAbove_TS267.add(t1);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("62.0")){
-               // f.add(moduleTS062);
                 moduleFromAbove_TS062.add(t1);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("75.0")){
-                //f.add(moduleTS075);
                 moduleFromAbove_TS075.add(t1);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("63.0")){
-                //f.add(moduleTS063);
                 moduleFromAbove_TS063.add(t1);
             } 
             
@@ -565,17 +572,20 @@ public class Frame_Main{
             
             else if(permit.getModuleNumber().toString().equalsIgnoreCase("helideck")){
                 moduleFromAbove_HeliDeck.add(t1);
-                moduleSideView_Helideck.add(t1);
+                JPanel t2 = generateT(permit);
+                moduleSideView_Helideck.add(t2);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("lifeboats")){
                 moduleFromAbove_LifeBoat.add(t1);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("Pump Room")){
                 moduleUpperDeck_PumpRoom.add(t1);
-                moduleSunkenDeck_PumpRoom.add(t1);
+                JPanel t2 = generateT(permit);
+                moduleSunkenDeck_PumpRoom.add(t2);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("foam room")){
                 moduleSunkenDeck_FoamRoom.add(t1);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("Sunken Deck")){
                 moduleSunkenDeck_PumpRoom.add(t1);
-                moduleSunkenDeck_FoamRoom.add(t1);
+                JPanel t2 = generateT(permit);
+                moduleSunkenDeck_FoamRoom.add(t2);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("ER")){
                 module2ndDeck_ER_EngineRoom.add(t1);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("3rd Deck")){
@@ -584,26 +594,32 @@ public class Frame_Main{
                 moduleTankTop.add(t1);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("A Deck")){
                 moduleADeck.add(t1);
-                moduleSideView_ADeck.add(t1);
+                JPanel t2 = generateT(permit);
+                moduleSideView_ADeck.add(t2);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("B Deck")){
                 moduleBDeck.add(t1);
-                moduleSideView_BDeck.add(t1);
+                JPanel t2 = generateT(permit);
+                moduleSideView_BDeck.add(t2);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("C Deck")){
                 moduleCDeck.add(t1);
-                moduleSideView_CDeck.add(t1);
+                JPanel t2 = generateT(permit);
+                moduleSideView_CDeck.add(t2);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("ENIF")){
                 moduleEnifDeck.add(t1);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("2nd Deck")){
                 moduleMore_2Deck.add(t1);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("D Deck")){
                 moduleMore_DDeck.add(t1);
-                moduleSideView_DDeck.add(t1);
+                JPanel t2 = generateT(permit);
+                moduleSideView_DDeck.add(t2);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("E Deck")){
                 moduleMore_EDeck.add(t1);
-                moduleSideView_EDeck.add(t1);
+                JPanel t2 = generateT(permit);
+                moduleSideView_EDeck.add(t2);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("Nev Bridge Deck")){
                 moduleMore_NavBridgeDeck.add(t1);
-                moduleSideView_NavBridgeDeck.add(t1);
+                JPanel t2 = generateT(permit);
+                moduleSideView_NavBridgeDeck.add(t2);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("Top Deck")){
                 moduleMore_TopDeck.add(t1);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("ECR Deck")){
@@ -622,8 +638,11 @@ public class Frame_Main{
                 moduleSideView_TS073.add(t1);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("78.0")){
                 moduleSideView_TS078.add(t1);
-            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("79.0")){
-                moduleSideView_TS079_IT279.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("79.0") ||
+                    permit.getModuleNumber().toString().equalsIgnoreCase("279.0")){
+                moduleFromAbove_TS079.add(t1);
+                JPanel t2 = generateT(permit);
+                moduleSideView_TS079_IT279.add(t2);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("72")){
                 moduleSideView_TS072.add(t1);
             }else if(permit.getModuleNumber().toString().equalsIgnoreCase("Vent Tower")){
@@ -655,8 +674,6 @@ public class Frame_Main{
         int ysize = (int) tk.getScreenSize().getHeight();
         this.frame_main.setSize(1400, 800);
         
-        
-
         this.menuBar = new JMenuBar();
         this.frame_main.setJMenuBar(this.menuBar);
         this.menuComponent_file = new JMenu("File");
@@ -668,7 +685,10 @@ public class Frame_Main{
         this.myConstraint.insets = new Insets(this.inset_leftSide, this.inset_rightSide, this.inset_topSide, this.inset_downSide);
         this.myConstraint.gridwidth = 3;
         
-        this.button_import = new JButton("ImportXLSX");
+        this.button_import = new JButton("ImportXLSX", new ImageIcon(this.getClass().getResource("/resources/excel import.png")));
+        this.button_ZoomIn = new JButton(new ImageIcon(this.getClass().getResource("/resources/zoom in.png")));
+        this.button_ZoomOut = new JButton(new ImageIcon(this.getClass().getResource("/resources/zoom out.png")));
+        
         this.button_fromAbove = new JButton("From Above");
         this.button_UpperDeck = new JButton("Upper Deck");
         this.button_SideView = new JButton("Side View");
@@ -681,9 +701,6 @@ public class Frame_Main{
         this.button_CDeck = new JButton("C Deck");
         this.button_EnifDeck = new JButton("Enif Deck");
         this.button_More = new JButton("More");
-        
-        this.button_ZoomIn = new JButton("+");
-        this.button_ZoomOut = new JButton("-");
         
         this.panel_viewPlants = new JPanel();
         this.panel_viewPlants.setLayout(new BorderLayout());
