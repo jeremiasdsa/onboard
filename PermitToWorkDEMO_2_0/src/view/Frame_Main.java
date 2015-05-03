@@ -84,7 +84,7 @@ public class Frame_Main{
     private JPanel moduleSunkenDeck_PumpRoom;
     private JPanel moduleSunkenDeck_FoamRoom;
     private JPanel module2ndDeck_ER_EngineRoom;
-    private JPanel module3ndDeck;
+    private JPanel module3rdDeck;
     private JPanel moduleTankTop;
     private JPanel moduleADeck;
     private JPanel moduleBDeck;
@@ -364,7 +364,7 @@ public class Frame_Main{
 //                    pathPlant = "src/view/images_plants/3rdDeck.jpg";
                     pathPlantURL = this.getClass().getResource("/resources/3rdDeck.jpg");
                     cleanViewPlant();
-                    module3ndDeck.setVisible(true);
+                    module3rdDeck.setVisible(true);
                     updateImageViewPlant();
                 }
         });
@@ -474,7 +474,7 @@ public class Frame_Main{
         moduleSunkenDeck_FoamRoom.setVisible(false);
         moduleSunkenDeck_PumpRoom.setVisible(false);
         module2ndDeck_ER_EngineRoom.setVisible(false);
-        module3ndDeck.setVisible(false);
+        module3rdDeck.setVisible(false);
         moduleTankTop.setVisible(false);
         moduleADeck.setVisible(false);
         moduleBDeck.setVisible(false);
@@ -532,39 +532,120 @@ public class Frame_Main{
             
             System.out.println(permit.getModuleNumber().toString());
             t1.setToolTipText(permit.toString());
-            if(permit.getModuleNumber().toString().compareTo("22.0")==0){
+            if(permit.getModuleNumber().toString().equalsIgnoreCase("22.0")){
                 moduleFromAbove_TS022.add(t1);
                 //f.add(moduleTS022);    
-            }else if(permit.getModuleNumber().toString().compareTo("21.0")==0){
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("21.0")){
                 //f.add(moduleTS021);
                 moduleFromAbove_TS021.add(t1); 
-            }else if(permit.getModuleNumber().toString().compareTo("264.0")==0){
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("264.0")){
                 //f.add(moduleTS264);
                 moduleFromAbove_TS264.add(t1); 
-            }else if(permit.getModuleNumber().toString().compareTo("265.0")==0){
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("265.0")){
                 //f.add(moduleTS265);
                 moduleFromAbove_TS265.add(t1); 
-            }else if(permit.getModuleNumber().toString().compareTo("266.0")==0){
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("266.0")){
                 //f.add(moduleTS266);
                 moduleFromAbove_TS266.add(t1); 
-            }else if(permit.getModuleNumber().toString().compareTo("267.0")==0){
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("267.0")){
                 //f.add(moduleTS267);
                 moduleFromAbove_TS267.add(t1);
-            }else if(permit.getModuleNumber().toString().compareTo("62.0")==0){
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("62.0")){
                // f.add(moduleTS062);
                 moduleFromAbove_TS062.add(t1);
-            }else if(permit.getModuleNumber().toString().compareTo("75.0")==0){
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("75.0")){
                 //f.add(moduleTS075);
                 moduleFromAbove_TS075.add(t1);
-            }else if(permit.getModuleNumber().toString().compareTo("63.0")==0){
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("63.0")){
                 //f.add(moduleTS063);
                 moduleFromAbove_TS063.add(t1);
             } 
+            
+            //TODO: Novos Modulos
+            
+            else if(permit.getModuleNumber().toString().equalsIgnoreCase("helideck")){
+                moduleFromAbove_HeliDeck.add(t1);
+                moduleSideView_Helideck.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("lifeboats")){
+                moduleFromAbove_LifeBoat.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("Pump Room")){
+                moduleUpperDeck_PumpRoom.add(t1);
+                moduleSunkenDeck_PumpRoom.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("foam room")){
+                moduleSunkenDeck_FoamRoom.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("Sunken Deck")){
+                moduleSunkenDeck_PumpRoom.add(t1);
+                moduleSunkenDeck_FoamRoom.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("ER")){
+                module2ndDeck_ER_EngineRoom.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("3rd Deck")){
+                module3rdDeck.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("Tank Top")){
+                moduleTankTop.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("A Deck")){
+                moduleADeck.add(t1);
+                moduleSideView_ADeck.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("B Deck")){
+                moduleBDeck.add(t1);
+                moduleSideView_BDeck.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("C Deck")){
+                moduleCDeck.add(t1);
+                moduleSideView_CDeck.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("ENIF")){
+                moduleEnifDeck.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("2nd Deck")){
+                moduleMore_2Deck.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("D Deck")){
+                moduleMore_DDeck.add(t1);
+                moduleSideView_DDeck.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("E Deck")){
+                moduleMore_EDeck.add(t1);
+                moduleSideView_EDeck.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("Nev Bridge Deck")){
+                moduleMore_NavBridgeDeck.add(t1);
+                moduleSideView_NavBridgeDeck.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("Top Deck")){
+                moduleMore_TopDeck.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("ECR Deck")){
+                moduleMore_UpperECRDeck.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("68.0")){
+                moduleSideView_TS068.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("11.0")){
+                moduleSideView_TS011.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("12.0")){
+                moduleSideView_TS012.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("5.0")){
+                moduleSideView_TS005.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("71.0")){
+                moduleSideView_TS071.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("73.0")){
+                moduleSideView_TS073.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("78.0")){
+                moduleSideView_TS078.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("79.0")){
+                moduleSideView_TS079_IT279.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("72")){
+                moduleSideView_TS072.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("Vent Tower")){
+                moduleSideView_VentTower.add(t1);
+            }else if(permit.getModuleNumber().toString().equalsIgnoreCase("Flare Tower")){
+                moduleSideView_FlareTower.add(t1);
+            }
     }
     
     private void initComponents(){
         
-        
+      try {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+      } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Frame_Main.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (InstantiationException ex) {
+        Logger.getLogger(Frame_Main.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (IllegalAccessException ex) {
+        Logger.getLogger(Frame_Main.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (UnsupportedLookAndFeelException ex) {
+        Logger.getLogger(Frame_Main.class.getName()).log(Level.SEVERE, null, ex);
+      }
         
         this.frame_main = new JFrame("My frame");
         this.frame_main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -649,7 +730,7 @@ public class Frame_Main{
         this.moduleSunkenDeck_FoamRoom = new JPanel();
         this.moduleSunkenDeck_PumpRoom = new JPanel();
         this.module2ndDeck_ER_EngineRoom = new JPanel();
-        this.module3ndDeck = new JPanel();
+        this.module3rdDeck = new JPanel();
         this.moduleTankTop = new JPanel();
         this.moduleADeck = new JPanel();
         this.moduleBDeck = new JPanel();
@@ -715,8 +796,8 @@ public class Frame_Main{
         this.moduleSunkenDeck_PumpRoom.setVisible(false);
         this.panel_viewPlants.add(this.module2ndDeck_ER_EngineRoom);
         this.module2ndDeck_ER_EngineRoom.setVisible(false);
-        this.panel_viewPlants.add(this.module3ndDeck);
-        this.module3ndDeck.setVisible(false);
+        this.panel_viewPlants.add(this.module3rdDeck);
+        this.module3rdDeck.setVisible(false);
         this.panel_viewPlants.add(this.moduleTankTop);
         this.moduleTankTop.setVisible(false);
         this.panel_viewPlants.add(this.moduleADeck);
@@ -907,9 +988,9 @@ public class Frame_Main{
         this.module2ndDeck_ER_EngineRoom.setSize((int)(477*zoomValue/10), (int)(335*zoomValue/10));
         this.module2ndDeck_ER_EngineRoom.setBackground(new Color(0,255,0,95));
         
-        this.module3ndDeck.setLocation((int)(100*zoomValue/10),(int)(100*zoomValue/10));
-        this.module3ndDeck.setSize((int)(1500*zoomValue/10), (int)(1500*zoomValue/10));
-        this.module3ndDeck.setBackground(new Color(255,255,0,50));
+        this.module3rdDeck.setLocation((int)(100*zoomValue/10),(int)(100*zoomValue/10));
+        this.module3rdDeck.setSize((int)(1500*zoomValue/10), (int)(1500*zoomValue/10));
+        this.module3rdDeck.setBackground(new Color(255,255,0,50));
         
         this.moduleTankTop.setLocation((int)(100*zoomValue/10),(int)(100*zoomValue/10));
         this.moduleTankTop.setSize((int)(1400*zoomValue/10), (int)(1000*zoomValue/10));
