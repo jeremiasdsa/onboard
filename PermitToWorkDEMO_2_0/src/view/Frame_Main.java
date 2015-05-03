@@ -12,11 +12,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.*;
+
 import model.Permit;
 import util.ReaderXLSX;
 
@@ -81,6 +84,38 @@ public class Frame_Main{
     private JPanel moduleSunkenDeck_PumpRoom;
     private JPanel moduleSunkenDeck_FoamRoom;
     private JPanel module2ndDeck_ER_EngineRoom;
+    private JPanel module3ndDeck;
+    private JPanel moduleTankTop;
+    private JPanel moduleADeck;
+    private JPanel moduleBDeck;
+    private JPanel moduleCDeck;
+    private JPanel moduleEnifDeck;
+    private JPanel moduleMore_2Deck;
+    private JPanel moduleMore_DDeck;
+    private JPanel moduleMore_EDeck;
+    private JPanel moduleMore_NavBridgeDeck;
+    private JPanel moduleMore_TopDeck;
+    private JPanel moduleMore_UpperECRDeck;
+    
+    private JPanel moduleSideView_Helideck;
+    private JPanel moduleSideView_NavBridgeDeck;
+    private JPanel moduleSideView_EDeck;
+    private JPanel moduleSideView_DDeck;
+    private JPanel moduleSideView_CDeck;
+    private JPanel moduleSideView_BDeck;
+    private JPanel moduleSideView_ADeck;
+    private JPanel moduleSideView_TS068;
+    private JPanel moduleSideView_TS011;
+    private JPanel moduleSideView_TS012;
+    private JPanel moduleSideView_TS005;
+    private JPanel moduleSideView_TS071;
+    private JPanel moduleSideView_TS073;
+    private JPanel moduleSideView_TS078;
+    private JPanel moduleSideView_TS079_IT279;
+    private JPanel moduleSideView_TS072;
+    private JPanel moduleSideView_VentTower;
+    private JPanel moduleSideView_FlareTower;
+    
     
     // }
     //finish here
@@ -99,11 +134,14 @@ public class Frame_Main{
     final private int inset_topSide = 5;
     final private int inset_downSide = 5;
     
-    private String pathPlant = "src/view/images_plants/ViewFromAboveUpdated.jpg";
+//    private String pathPlant = "src/view/images_plants/ViewFromAboveUpdated.jpg";
+    
+    private URL pathPlantURL = this.getClass().getResource("/resources/viewFromAboveUpdated.jpg");
+    
+    
     
     public void go(){
-        
-        initComponents();
+    	initComponents();
         addContentsToContents();
         
         
@@ -116,7 +154,7 @@ public class Frame_Main{
                     
                     if(zoomValue<10){
                         zoomValue+=1;
-                        Icon initial_icon = new javax.swing.ImageIcon(pathPlant);
+                        Icon initial_icon = new javax.swing.ImageIcon(pathPlantURL);
                         BufferedImage img = new BufferedImage(initial_icon.getIconWidth(), initial_icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
                         Graphics g = img.createGraphics();
                         initial_icon.paintIcon(null, g, 0, 0);
@@ -138,7 +176,7 @@ public class Frame_Main{
 
                     if(zoomValue>1){
                         zoomValue-=1;
-                        Icon initial_icon = new javax.swing.ImageIcon(pathPlant);
+                        Icon initial_icon = new javax.swing.ImageIcon(pathPlantURL);
                         BufferedImage img = new BufferedImage(initial_icon.getIconWidth(), initial_icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
                         Graphics g = img.createGraphics();
                         initial_icon.paintIcon(null, g, 0, 0);
@@ -157,8 +195,8 @@ public class Frame_Main{
                 int r = chooser.showOpenDialog(null);
                 File f = chooser.getSelectedFile();
                 if (r == JFileChooser.APPROVE_OPTION) {
-                    String filename = f.getAbsolutePath();
-                    System.out.println(filename);
+                    final String filename = f.getAbsolutePath();
+//                    System.out.println(filename);
 
                     SwingUtilities.invokeLater(new Runnable() {
 
@@ -168,9 +206,9 @@ public class Frame_Main{
                             read.execute();
                               updateModules();
                             try {
-                                ArrayList<Permit> a = read.get();
-                                //System.out.println(a.toString());
-                                System.out.println("DONE");
+                                final ArrayList<Permit> a = read.get();
+//                                System.out.println(a.toString());
+//                                System.out.println("DONE");
                                 
                                 
                                 SwingWorker<Boolean, Void> worker = new SwingWorker<Boolean, Void>() {
@@ -178,8 +216,10 @@ public class Frame_Main{
                                     @Override
                                     protected Boolean doInBackground() throws Exception {
                                         for(Permit p : a){
-                                            //Thread.sleep(100);
-                                            applyPermitsInModules(p);  updateModules();
+//                                            Thread.sleep(100);
+                                            applyPermitsInModules(p);
+                                            frame_main.revalidate();
+                                            frame_main.repaint();
                                         }
                                         return true;
                                     }
@@ -223,7 +263,8 @@ public class Frame_Main{
                 new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent ae){
-                    pathPlant = "src/view/images_plants/ViewFromAboveUpdated.jpg";
+//                    pathPlant = "src/view/images_plants/ViewFromAboveUpdated.jpg";
+                    pathPlantURL = this.getClass().getResource("/resources/viewFromAboveUpdated.jpg");
                     cleanViewPlant();
                     moduleFromAbove_TS022.setVisible(true);
                     moduleFromAbove_TS021.setVisible(true);
@@ -249,7 +290,7 @@ public class Frame_Main{
                     moduleFromAbove_TS072.setVisible(true);
                     moduleFromAbove_HeliDeck.setVisible(true);
                     moduleFromAbove_LifeBoat.setVisible(true);
-                    updateImageViewPlant(pathPlant);
+                    updateImageViewPlant();
                     
                 }
         });
@@ -257,10 +298,11 @@ public class Frame_Main{
                 new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent ae){
-                    pathPlant = "src/view/images_plants/UpperDeckUpdated.jpg";
+//                    pathPlant = "src/view/images_plants/UpperDeckUpdated.jpg";
+                    pathPlantURL = this.getClass().getResource("/resources/UpperDeckUpdated.jpg");
                     cleanViewPlant();
                     moduleUpperDeck_PumpRoom.setVisible(true);
-                    updateImageViewPlant(pathPlant);
+                    updateImageViewPlant();
                     
                 }
         });
@@ -268,90 +310,133 @@ public class Frame_Main{
                 new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent ae){
-                    pathPlant = "src/view/images_plants/SideView.jpg";
+//                    pathPlant = "src/view/images_plants/SideView.jpg";
+                    pathPlantURL = this.getClass().getResource("/resources/SideView.jpg");
                     cleanViewPlant();
-                    updateImageViewPlant(pathPlant);
+                    moduleSideView_ADeck.setVisible(true);
+                    moduleSideView_BDeck.setVisible(true);
+                    moduleSideView_CDeck.setVisible(true);
+                    moduleSideView_DDeck.setVisible(true);
+                    moduleSideView_EDeck.setVisible(true);
+                    moduleSideView_FlareTower.setVisible(true);
+                    moduleSideView_Helideck.setVisible(true);
+                    moduleSideView_NavBridgeDeck.setVisible(true);
+                    moduleSideView_TS005.setVisible(true);
+                    moduleSideView_TS011.setVisible(true);
+                    moduleSideView_TS012.setVisible(true);
+                    moduleSideView_TS068.setVisible(true);
+                    moduleSideView_TS071.setVisible(true);
+                    moduleSideView_TS072.setVisible(true);
+                    moduleSideView_TS073.setVisible(true);
+                    moduleSideView_TS078.setVisible(true);
+                    moduleSideView_TS079_IT279.setVisible(true);
+                    moduleSideView_VentTower.setVisible(true);
+                    updateImageViewPlant();
                 }
         });
         button_SunkenDeck.addActionListener(
                 new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent ae){
-                    pathPlant = "src/view/images_plants/SunkenDeckUpdated.jpg";
+//                    pathPlant = "src/view/images_plants/SunkenDeckUpdated.jpg";
+                    pathPlantURL = this.getClass().getResource("/resources/SunkenDeckUpdated.jpg");
                     cleanViewPlant();
-                    updateImageViewPlant(pathPlant);
+                    moduleSunkenDeck_FoamRoom.setVisible(true);
+                    moduleSunkenDeck_PumpRoom.setVisible(true);
+                    updateImageViewPlant();
                 }
         });
         button_2ndDeck.addActionListener(
                 new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent ae){
-                    pathPlant = "src/view/images_plants/2ndDeck.jpg";
+//                    pathPlant = "src/view/images_plants/2ndDeck.jpg";
+                    pathPlantURL = this.getClass().getResource("/resources/2ndDeck.jpg");
                     cleanViewPlant();
-                    updateImageViewPlant(pathPlant);
+                    module2ndDeck_ER_EngineRoom.setVisible(true);
+                    updateImageViewPlant();
                 }
         });
         button_3rdDeck.addActionListener(
                 new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent ae){
-                    pathPlant = "src/view/images_plants/3rdDeck.jpg";
+//                    pathPlant = "src/view/images_plants/3rdDeck.jpg";
+                    pathPlantURL = this.getClass().getResource("/resources/3rdDeck.jpg");
                     cleanViewPlant();
-                    updateImageViewPlant(pathPlant);
+                    module3ndDeck.setVisible(true);
+                    updateImageViewPlant();
                 }
         });
         button_TankTop.addActionListener(
                 new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent ae){
-                    pathPlant = "src/view/images_plants/Tank Top.jpg";
+//                    pathPlant = "src/view/images_plants/Tank Top.jpg";
+                    pathPlantURL = this.getClass().getResource("/resources/Tank Top.jpg");
                     cleanViewPlant();
-                    updateImageViewPlant(pathPlant);
+                    moduleTankTop.setVisible(true);
+                    updateImageViewPlant();
                 }
         });
         button_ADeck.addActionListener(
                 new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent ae){
-                    pathPlant = "src/view/images_plants/A-Deck.jpg";
+//                    pathPlant = "src/view/images_plants/A-Deck.jpg";
+                    pathPlantURL = this.getClass().getResource("/resources/A-Deck.jpg");
                     cleanViewPlant();
-                    updateImageViewPlant(pathPlant);
+                    moduleADeck.setVisible(true);
+                    updateImageViewPlant();
                 }
         });
         button_BDeck.addActionListener(
                 new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent ae){
-                    pathPlant = "src/view/images_plants/B-Deck.jpg";
+//                    pathPlant = "src/view/images_plants/B-Deck.jpg";
+                    pathPlantURL = this.getClass().getResource("/resources/B-Deck.jpg");
                     cleanViewPlant();
-                    updateImageViewPlant(pathPlant);
+                    moduleBDeck.setVisible(true);
+                    updateImageViewPlant();
                 }
         });
         button_CDeck.addActionListener(
                 new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent ae){
-                    pathPlant = "src/view/images_plants/C-Deck.jpg";
+//                    pathPlant = "src/view/images_plants/C-Deck.jpg";
+                    pathPlantURL = this.getClass().getResource("/resources/C-Deck.jpg");
                     cleanViewPlant();
-                    updateImageViewPlant(pathPlant);
+                    moduleCDeck.setVisible(true);
+                    updateImageViewPlant();
                 }
         });
         button_EnifDeck.addActionListener(
                 new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent ae){
-                    pathPlant = "src/view/images_plants/ENIF Deck.jpg";
+//                    pathPlant = "src/view/images_plants/ENIF Deck.jpg";
+                    pathPlantURL = this.getClass().getResource("/resources/ENIF Deck.jpg");
                     cleanViewPlant();
-                    updateImageViewPlant(pathPlant);
+                    moduleEnifDeck.setVisible(true);
+                    updateImageViewPlant();
                 }
         });
         button_More.addActionListener(
                 new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent ae){
-                    pathPlant = "src/view/images_plants/More.jpg";
+//                    pathPlant = "src/view/images_plants/More.jpg";
+                    pathPlantURL = this.getClass().getResource("/resources/More.jpg");
                     cleanViewPlant();
-                    updateImageViewPlant(pathPlant);
+                    moduleMore_2Deck.setVisible(true);
+                    moduleMore_DDeck.setVisible(true);
+                    moduleMore_EDeck.setVisible(true);
+                    moduleMore_NavBridgeDeck.setVisible(true);
+                    moduleMore_TopDeck.setVisible(true);
+                    moduleMore_UpperECRDeck.setVisible(true);
+                    updateImageViewPlant();
                 }
         });
         
@@ -386,11 +471,44 @@ public class Frame_Main{
         moduleFromAbove_HeliDeck.setVisible(false);
         moduleFromAbove_LifeBoat.setVisible(false);
         moduleUpperDeck_PumpRoom.setVisible(false);
-      
+        moduleSunkenDeck_FoamRoom.setVisible(false);
+        moduleSunkenDeck_PumpRoom.setVisible(false);
+        module2ndDeck_ER_EngineRoom.setVisible(false);
+        module3ndDeck.setVisible(false);
+        moduleTankTop.setVisible(false);
+        moduleADeck.setVisible(false);
+        moduleBDeck.setVisible(false);
+        moduleCDeck.setVisible(false);
+        moduleEnifDeck.setVisible(false);
+        moduleMore_2Deck.setVisible(false);
+        moduleMore_DDeck.setVisible(false);
+        moduleMore_EDeck.setVisible(false);
+        moduleMore_NavBridgeDeck.setVisible(false);
+        moduleMore_TopDeck.setVisible(false);
+        moduleMore_UpperECRDeck.setVisible(false);
+        
+        moduleSideView_ADeck.setVisible(false);
+        moduleSideView_BDeck.setVisible(false);
+        moduleSideView_CDeck.setVisible(false);
+        moduleSideView_DDeck.setVisible(false);
+        moduleSideView_EDeck.setVisible(false);
+        moduleSideView_FlareTower.setVisible(false);
+        moduleSideView_Helideck.setVisible(false);
+        moduleSideView_NavBridgeDeck.setVisible(false);
+        moduleSideView_TS005.setVisible(false);
+        moduleSideView_TS011.setVisible(false);
+        moduleSideView_TS012.setVisible(false);
+        moduleSideView_TS068.setVisible(false);
+        moduleSideView_TS071.setVisible(false);
+        moduleSideView_TS072.setVisible(false);
+        moduleSideView_TS073.setVisible(false);
+        moduleSideView_TS078.setVisible(false);
+        moduleSideView_TS079_IT279.setVisible(false);
+        moduleSideView_VentTower.setVisible(false);
     }
    
-    private void updateImageViewPlant(String path){
-        Icon initial_icon = new javax.swing.ImageIcon(pathPlant);
+    private void updateImageViewPlant(){
+        Icon initial_icon = new javax.swing.ImageIcon(pathPlantURL);
         BufferedImage img = new BufferedImage(initial_icon.getIconWidth(), initial_icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics g = img.createGraphics();
         initial_icon.paintIcon(null, g, 0, 0);
@@ -411,6 +529,7 @@ public class Frame_Main{
                 t1.setBackground(Color.RED);
                 t1.setName(permit.getHotWorkPermitNo().toString());
             }
+            
             System.out.println(permit.getModuleNumber().toString());
             t1.setToolTipText(permit.toString());
             if(permit.getModuleNumber().toString().compareTo("22.0")==0){
@@ -488,8 +607,7 @@ public class Frame_Main{
         this.panel_viewPlants = new JPanel();
         this.panel_viewPlants.setLayout(new BorderLayout());
         
-        
-        Icon initial_icon = new javax.swing.ImageIcon(pathPlant);
+        Icon initial_icon = new javax.swing.ImageIcon(pathPlantURL);        
         BufferedImage img = new BufferedImage(initial_icon.getIconWidth(), initial_icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics g = img.createGraphics();
         initial_icon.paintIcon(null, g, 0, 0);
@@ -528,6 +646,41 @@ public class Frame_Main{
         this.moduleFromAbove_HeliDeck = new JPanel();
         this.moduleFromAbove_LifeBoat = new JPanel();
         this.moduleUpperDeck_PumpRoom = new JPanel();
+        this.moduleSunkenDeck_FoamRoom = new JPanel();
+        this.moduleSunkenDeck_PumpRoom = new JPanel();
+        this.module2ndDeck_ER_EngineRoom = new JPanel();
+        this.module3ndDeck = new JPanel();
+        this.moduleTankTop = new JPanel();
+        this.moduleADeck = new JPanel();
+        this.moduleBDeck = new JPanel();
+        this.moduleCDeck = new JPanel();
+        this.moduleEnifDeck = new JPanel();
+        this.moduleMore_2Deck = new JPanel();
+        this.moduleMore_DDeck = new JPanel();
+        this.moduleMore_EDeck = new JPanel();
+        this.moduleMore_NavBridgeDeck = new JPanel();
+        this.moduleMore_TopDeck = new JPanel();
+        this.moduleMore_UpperECRDeck = new JPanel();
+        
+        this.moduleSideView_Helideck = new JPanel();
+        this.moduleSideView_NavBridgeDeck = new JPanel();
+        this.moduleSideView_EDeck = new JPanel();
+        this.moduleSideView_DDeck = new JPanel();
+        this.moduleSideView_CDeck = new JPanel();
+        this.moduleSideView_BDeck = new JPanel();
+        this.moduleSideView_ADeck = new JPanel();
+        this.moduleSideView_TS068 = new JPanel();
+        this.moduleSideView_TS011 = new JPanel();
+        this.moduleSideView_TS012 = new JPanel();
+        this.moduleSideView_TS005 = new JPanel();
+        this.moduleSideView_TS071 = new JPanel();
+        this.moduleSideView_TS073 = new JPanel();
+        this.moduleSideView_TS078 = new JPanel();
+        this.moduleSideView_TS079_IT279 = new JPanel();
+        this.moduleSideView_TS072 = new JPanel();
+        this.moduleSideView_VentTower = new JPanel();
+        this.moduleSideView_FlareTower = new JPanel();
+        
         updateModules();
         //initial modules to view From Above
         this.panel_viewPlants.add(this.moduleFromAbove_TS022);
@@ -554,9 +707,78 @@ public class Frame_Main{
         this.panel_viewPlants.add(this.moduleFromAbove_TS072);
         this.panel_viewPlants.add(this.moduleFromAbove_HeliDeck);
         this.panel_viewPlants.add(this.moduleFromAbove_LifeBoat);
-        
         this.panel_viewPlants.add(this.moduleUpperDeck_PumpRoom);
         this.moduleUpperDeck_PumpRoom.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSunkenDeck_FoamRoom);
+        this.moduleSunkenDeck_FoamRoom.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSunkenDeck_PumpRoom);
+        this.moduleSunkenDeck_PumpRoom.setVisible(false);
+        this.panel_viewPlants.add(this.module2ndDeck_ER_EngineRoom);
+        this.module2ndDeck_ER_EngineRoom.setVisible(false);
+        this.panel_viewPlants.add(this.module3ndDeck);
+        this.module3ndDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleTankTop);
+        this.moduleTankTop.setVisible(false);
+        this.panel_viewPlants.add(this.moduleADeck);
+        this.moduleADeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleBDeck);
+        this.moduleBDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleCDeck);
+        this.moduleCDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleEnifDeck);
+        this.moduleEnifDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleMore_2Deck);
+        this.moduleMore_2Deck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleMore_DDeck);
+        this.moduleMore_DDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleMore_EDeck);
+        this.moduleMore_EDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleMore_NavBridgeDeck);
+        this.moduleMore_NavBridgeDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleMore_TopDeck);
+        this.moduleMore_TopDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleMore_UpperECRDeck);
+        this.moduleMore_UpperECRDeck.setVisible(false);
+        
+        this.panel_viewPlants.add(this.moduleSideView_ADeck);
+        this.moduleSideView_ADeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_BDeck);
+        this.moduleSideView_BDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_CDeck);
+        this.moduleSideView_CDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_DDeck);
+        this.moduleSideView_DDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_EDeck);
+        this.moduleSideView_EDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_FlareTower);
+        this.moduleSideView_FlareTower.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_Helideck);
+        this.moduleSideView_Helideck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_NavBridgeDeck);
+        this.moduleSideView_NavBridgeDeck.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_TS005);
+        this.moduleSideView_TS005.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_TS011);
+        this.moduleSideView_TS011.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_TS012);
+        this.moduleSideView_TS012.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_TS068);
+        this.moduleSideView_TS068.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_TS071);
+        this.moduleSideView_TS071.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_TS072);
+        this.moduleSideView_TS072.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_TS073);
+        this.moduleSideView_TS073.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_TS078);
+        this.moduleSideView_TS078.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_TS079_IT279);
+        this.moduleSideView_TS079_IT279.setVisible(false);
+        this.panel_viewPlants.add(this.moduleSideView_VentTower);
+        this.moduleSideView_VentTower.setVisible(false);
+        
+        
+        
         
         this.panel_viewPlants.add(this.label_viewPlant);
       
@@ -672,6 +894,142 @@ public class Frame_Main{
         this.moduleUpperDeck_PumpRoom.setLocation((int)(2050*zoomValue/10),(int)(1324*zoomValue/10));
         this.moduleUpperDeck_PumpRoom.setSize((int)(157*zoomValue/10), (int)(190*zoomValue/10));
         this.moduleUpperDeck_PumpRoom.setBackground(new Color(0,255,255,80));
+        
+        this.moduleSunkenDeck_FoamRoom.setLocation((int)(1480*zoomValue/10),(int)(1004*zoomValue/10));
+        this.moduleSunkenDeck_FoamRoom.setSize((int)(196*zoomValue/10), (int)(225*zoomValue/10));
+        this.moduleSunkenDeck_FoamRoom.setBackground(new Color(0,255,255,80));
+        
+        this.moduleSunkenDeck_PumpRoom.setLocation((int)(1673*zoomValue/10),(int)(665*zoomValue/10));
+        this.moduleSunkenDeck_PumpRoom.setSize((int)(156*zoomValue/10), (int)(380*zoomValue/10));
+        this.moduleSunkenDeck_PumpRoom.setBackground(new Color(0,255,0,80));
+        
+        this.module2ndDeck_ER_EngineRoom.setLocation((int)(1035*zoomValue/10),(int)(716*zoomValue/10));
+        this.module2ndDeck_ER_EngineRoom.setSize((int)(477*zoomValue/10), (int)(335*zoomValue/10));
+        this.module2ndDeck_ER_EngineRoom.setBackground(new Color(0,255,0,95));
+        
+        this.module3ndDeck.setLocation((int)(100*zoomValue/10),(int)(100*zoomValue/10));
+        this.module3ndDeck.setSize((int)(1500*zoomValue/10), (int)(1500*zoomValue/10));
+        this.module3ndDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleTankTop.setLocation((int)(100*zoomValue/10),(int)(100*zoomValue/10));
+        this.moduleTankTop.setSize((int)(1400*zoomValue/10), (int)(1000*zoomValue/10));
+        this.moduleTankTop.setBackground(new Color(255,255,0,50));
+        
+        this.moduleADeck.setLocation((int)(100*zoomValue/10),(int)(100*zoomValue/10));
+        this.moduleADeck.setSize((int)(1500*zoomValue/10), (int)(1500*zoomValue/10));
+        this.moduleADeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleBDeck.setLocation((int)(100*zoomValue/10),(int)(100*zoomValue/10));
+        this.moduleBDeck.setSize((int)(1500*zoomValue/10), (int)(1500*zoomValue/10));
+        this.moduleBDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleCDeck.setLocation((int)(100*zoomValue/10),(int)(100*zoomValue/10));
+        this.moduleCDeck.setSize((int)(1500*zoomValue/10), (int)(1500*zoomValue/10));
+        this.moduleCDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleEnifDeck.setLocation((int)(100*zoomValue/10),(int)(100*zoomValue/10));
+        this.moduleEnifDeck.setSize((int)(1500*zoomValue/10), (int)(1500*zoomValue/10));
+        this.moduleEnifDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleMore_2Deck.setLocation((int)(100*zoomValue/10),(int)(200*zoomValue/10));
+        this.moduleMore_2Deck.setSize((int)(1100*zoomValue/10), (int)(1800*zoomValue/10));
+        this.moduleMore_2Deck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleMore_DDeck.setLocation((int)(1550*zoomValue/10),(int)(200*zoomValue/10));
+        this.moduleMore_DDeck.setSize((int)(1100*zoomValue/10), (int)(1800*zoomValue/10));
+        this.moduleMore_DDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleMore_EDeck.setLocation((int)(3000*zoomValue/10),(int)(200*zoomValue/10));
+        this.moduleMore_EDeck.setSize((int)(1100*zoomValue/10), (int)(1800*zoomValue/10));
+        this.moduleMore_EDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleMore_NavBridgeDeck.setLocation((int)(100*zoomValue/10),(int)(2500*zoomValue/10));
+        this.moduleMore_NavBridgeDeck.setSize((int)(1100*zoomValue/10), (int)(1800*zoomValue/10));
+        this.moduleMore_NavBridgeDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleMore_TopDeck.setLocation((int)(1750*zoomValue/10),(int)(2500*zoomValue/10));
+        this.moduleMore_TopDeck.setSize((int)(1100*zoomValue/10), (int)(1800*zoomValue/10));
+        this.moduleMore_TopDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleMore_UpperECRDeck.setLocation((int)(3200*zoomValue/10),(int)(2500*zoomValue/10));
+        this.moduleMore_UpperECRDeck.setSize((int)(1100*zoomValue/10), (int)(1800*zoomValue/10));
+        this.moduleMore_UpperECRDeck.setBackground(new Color(255,255,0,50));
+        
+        
+        
+        
+        
+        this.moduleSideView_ADeck.setLocation((int)(2120*zoomValue/10),(int)(1303*zoomValue/10));
+        this.moduleSideView_ADeck.setSize((int)(501*zoomValue/10), (int)(107*zoomValue/10));
+        this.moduleSideView_ADeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_BDeck.setLocation((int)(2120*zoomValue/10),(int)(1205*zoomValue/10));
+        this.moduleSideView_BDeck.setSize((int)(503*zoomValue/10), (int)(95*zoomValue/10));
+        this.moduleSideView_BDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_CDeck.setLocation((int)(2120*zoomValue/10),(int)(1105*zoomValue/10));
+        this.moduleSideView_CDeck.setSize((int)(501*zoomValue/10), (int)(99*zoomValue/10));
+        this.moduleSideView_CDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_DDeck.setLocation((int)(2120*zoomValue/10),(int)(1001*zoomValue/10));
+        this.moduleSideView_DDeck.setSize((int)(503*zoomValue/10), (int)(101*zoomValue/10));
+        this.moduleSideView_DDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_EDeck.setLocation((int)(2120*zoomValue/10),(int)(897*zoomValue/10));
+        this.moduleSideView_EDeck.setSize((int)(499*zoomValue/10), (int)(107*zoomValue/10));
+        this.moduleSideView_EDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_FlareTower.setLocation((int)(9860*zoomValue/10),(int)(515*zoomValue/10));
+        this.moduleSideView_FlareTower.setSize((int)(389*zoomValue/10), (int)(969*zoomValue/10));
+        this.moduleSideView_FlareTower.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_Helideck.setLocation((int)(668*zoomValue/10),(int)(826*zoomValue/10));
+        this.moduleSideView_Helideck.setSize((int)(951*zoomValue/10), (int)(349*zoomValue/10));
+        this.moduleSideView_Helideck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_NavBridgeDeck.setLocation((int)(2120*zoomValue/10),(int)(793*zoomValue/10));
+        this.moduleSideView_NavBridgeDeck.setSize((int)(501*zoomValue/10), (int)(105*zoomValue/10));
+        this.moduleSideView_NavBridgeDeck.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_TS005.setLocation((int)(4914*zoomValue/10),(int)(1005*zoomValue/10));
+        this.moduleSideView_TS005.setSize((int)(725*zoomValue/10), (int)(425*zoomValue/10));
+        this.moduleSideView_TS005.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_TS011.setLocation((int)(3351*zoomValue/10),(int)(664*zoomValue/10));
+        this.moduleSideView_TS011.setSize((int)(717*zoomValue/10), (int)(773*zoomValue/10));
+        this.moduleSideView_TS011.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_TS012.setLocation((int)(4119*zoomValue/10),(int)(658*zoomValue/10));
+        this.moduleSideView_TS012.setSize((int)(733*zoomValue/10), (int)(781*zoomValue/10));
+        this.moduleSideView_TS012.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_TS068.setLocation((int)(2807*zoomValue/10),(int)(1266*zoomValue/10));
+        this.moduleSideView_TS068.setSize((int)(501*zoomValue/10), (int)(177*zoomValue/10));
+        this.moduleSideView_TS068.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_TS071.setLocation((int)(5690*zoomValue/10),(int)(713*zoomValue/10));
+        this.moduleSideView_TS071.setSize((int)(721*zoomValue/10), (int)(729*zoomValue/10));
+        this.moduleSideView_TS071.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_TS072.setLocation((int)(8975*zoomValue/10),(int)(452*zoomValue/10));
+        this.moduleSideView_TS072.setSize((int)(713*zoomValue/10), (int)(993*zoomValue/10));
+        this.moduleSideView_TS072.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_TS073.setLocation((int)(6476*zoomValue/10),(int)(637*zoomValue/10));
+        this.moduleSideView_TS073.setSize((int)(869*zoomValue/10), (int)(805*zoomValue/10));
+        this.moduleSideView_TS073.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_TS078.setLocation((int)(7408*zoomValue/10),(int)(650*zoomValue/10));
+        this.moduleSideView_TS078.setSize((int)(717*zoomValue/10), (int)(793*zoomValue/10));
+        this.moduleSideView_TS078.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_TS079_IT279.setLocation((int)(8187*zoomValue/10),(int)(908*zoomValue/10));
+        this.moduleSideView_TS079_IT279.setSize((int)(717*zoomValue/10), (int)(535*zoomValue/10));
+        this.moduleSideView_TS079_IT279.setBackground(new Color(255,255,0,50));
+        
+        this.moduleSideView_VentTower.setLocation((int)(9686*zoomValue/10),(int)(533*zoomValue/10));
+        this.moduleSideView_VentTower.setSize((int)(169*zoomValue/10), (int)(915*zoomValue/10));
+        this.moduleSideView_VentTower.setBackground(new Color(255,255,0,50));
         
     }
        
